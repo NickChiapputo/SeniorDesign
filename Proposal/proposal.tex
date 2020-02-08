@@ -1,4 +1,4 @@
-\documentclass[conference]{IEEEtran}
+\documentclass[11pt]{IEEEtran}
 
 \usepackage{cite}				% Used to cite references and figures
 \usepackage{titling}			% Used to move title up when not in IEEEtran
@@ -12,19 +12,23 @@
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage{algorithm,algpseudocode}			% Used to create an algorithm block
-% \usepackage{algorithmic}			% Used to create an algorithm block
+\usepackage{pgfgantt}
+\usepackage{tabularx}			% Allows for double-column spanning table
+\usepackage{dblfloatfix}		% Allows figure* to be at bottom of page
 
-% Adjust margins with geometry package
-% \usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
-
-% Move title up
-%\setlength{\droptitle}{-12.5em}
+\hypersetup{
+	colorlinks = true,
+	linkcolor = blue,
+	filecolor = magenta,
+	urlcolor = cyan,
+	citecolor = blue,
+	pdftitle = {Autonomous Tread Identification System},
+	pdfpagemode = UseOutlines,
+}
 
 \begin{document}
 
-	\title{ SwarmPack: A Drone Fleet Package Delivery System \\
-			or \\
-			AirRoomba: A Flying Roomba That Works }
+	\title{ Autonomous Tread Identification System }
 
 	\author{	Senior Design I Student Proposal \\
 				University of North Texas Department of Electrical Engineering \\
@@ -39,43 +43,297 @@
 	% \end{abstract}
 
 	\section{Problem Definition}
-		Drone with deliverable qualities. Request options are still undetermined. There is always a need for more drones to do things to eliminate human error.
+		Some of the greatest concerns relating to the cause of motor vehicle accidents fall back on blowouts, tread separation, and worn tread. In 2015, more than 35,000 people died from motor vehicle accidents in the United States alone. For every person killed in a motor vehicle accident, 8 people were hospitalized and 99 people were treated and released from emergency departments \cite{cdcKeyStats}. The NHTSA has reported that, on tire-related crash vehicles, 26.2\% of tires had a tread-depth of the legal minimum of 2/32'' or less \cite[pp.~8-9]{nhtsaCrashStats}. We propose a low-cost, easy to install autonomous tire tread sensor to alert vehicle operators to uneven or dangerous tread on their tires.
 
-		We are trying to make more jobs for drones to eliminate human error which hopefully will increase efficiency. This will create more time for brainstorming and idea creation to achieve more tasks per year. The specificity for the drone usage in our project is to create a path or job for a drone to either deliver objects/packages and or function as a vacuum/dusting service.
+		\subsection{Background}
+			In order to understand how the safety of a tire can be improved, it is first necessary to understand the important aspects of one. A tire is made up of rubber but has some security built into it along with ways for the rubber to grip and glide on the surface of roads. The main edition to this rubber on a tire that most people are familiar with is called tread. The tread on a tire is a special type of rubber surface that has unique designs along the circumference of the tire. The tread of the tire is what contacts the driving surface and has been engineered to grab or grip the surface it impacts and travels on. Tread is created by forming a rib (center of the tread) surrounded by blocks, grooves, and sipes.
 
-		The closest implemented project for the design mentioned is Amazon’s Prime delivery drone. The project is new and is being implemented either now or soon.
+			The surface anatomy of the tread of a tire can be explained a little further. The tread blocks seen throughout the tread is the main ingredient to the tread itself. The blocks are the raised part of the tread that contacts the surface of the roads. The rib is the same as tread blocks but is centered on the tire. The grooves are the canals that separate the tread blocks creating an innovative path for water and air to flow which allow for more grip or better traction. The sipes are smaller versions of the grooves in the tread that allow for more accurate traction and in some cases more comfort or less vibrations as the tires rotate on the surface of roads. 
+
+		\subsection{Current Products}
+			Currently, some companies are working on devices that detect low tread on tires. Continental, a large tire distribution company, has proposed tread monitoring sensors embedded on the inside of tires. While many articles as far back as 2014 have been published, the sensors have still not been pushed to the market. Another company, Tyrata, has received nearly \$4.5 million in funding to develop their proprietary sensor, IntelliTread. This product is also embedded inside the tire to detect tread wear. IntelliTread is made from materials such as carbon nanotubes, making it prohibitively expensive to develop. In addition, this product has also not yet been pushed to the market.
+
+		\subsection{Proposed Product}
+			We propose an Autonomous Tread Identification System (ATIS) using either a wear-down sensor or a Light Detection and Ranging (LIDAR) sensor to reduce the risk of injuries and deaths related to motor vehicle accidents. To be effective, the tread identification system must accomplish the following
+
+			\begin{itemize}
+				\item Continuously provide reliable measurements/readings for each tire’s tread depth at a low-cost
+				\item Display the measurements/readings in an understandable form and safely manner to the driver
+				\item Ensure the sensors are easily replaceable for a possible faulty device or buying new tires 
+			\end{itemize}
+
+			Unlike the current researched products, the ATIS will be nearly ready for the market by the end of this project. The product will be easily installable on most passenger vehicles, so that new tires do not need to be purchased to see the benefits of the sensor. The ATIS will be a low-cost device so everyday consumers can afford it. This will also allow commercial vehicles, such as semi trucks, to implement the device on a fleet-wide scale for large cost savings. 
+
+			A tread identification system can lead to the elimination of waste on roads and highways by reducing the frequency of tire blowouts. The system can also lead to improved tire maintenance by informing drivers when to go to a service shop, leading to cost saving opportunities by ensuring drivers purchase tires only when needed and before they become dangerous to use. Once the ultimate goals of ATIS has been achieved, we could further increase the specifications of the system by dynamically estimating a tire’s lifespan based on the driver’s habits and detecting foreign metal objects penetrating the tire. If successful, we could release the product to surrounding semi-truck, automobile service, and tire manufacturer companies at a low-cost and profitable rate.
+
+		\textit{Terminology}:
+		\begin{itemize}
+			\item ATIS - Autonomous Tread Identification System
+			\item LIDAR - Light Detection and Ranging 
+			\item Tread is a special type of rubber surface along the circumference of a tire that enables a tire to grip the road to provide traction and stability when maneuvering a vehicle.
+			\item Tread Depth is the depth of the grooves in the tread. A minimum value of 2/32'' is the legal minimum requirement and most new passenger vehicle tires are produced at 12/32''.
+		\end{itemize}
 
 	\section{Researching and Generating Ideas}
-		We need to research the basic knowledge on the design of our project with concepts and procedures to help define the rules for construction of our project. We created a criteria that will define the basic performance needs of our drone (delivery service). A list of constraints and standards will help with implementation of the project.
+		Aside from ATIS, our team generated and researched many other product ideas. One of the most promising ideas is a Robotic Automated Delivery (RAD) system. This system is an autonomous robot to deliver packages and mail. There were two possible implementations of the system. First, the robot is designed to collect packages from a centralized mail room. For each package, it would identify the room location and autonomously deliver the package to the appropriate location. 
+
+		Second, a fleet of robots could be deployed from a package delivery vehicle. Each robot could be given packages for a few houses and the vehicle could release the fleet every few blocks. This would allow packages to be delivered rapidly with a distributed system. Both products could potentially save significant manpower and payroll costs. 
+
+		A second potential idea we developed is a smart pool sensor. The smart pool sensors currently on the market are generally fairly unreliable and do not automatically correct for chemical imbalances in a pool. Our improvement over this is to develop a system to accurately measure chemicals in a pool. A consumer could then connect to the device through a bluetooth connection on their mobile device to view current chemical measurements. 
+
+		The system would also be connected to a system to automatically release and disperse chemicals into the pool when the chemicals in the pool are imbalanced. The consumer would also receive notifications when within range of the system if the level of chemicals in the dispersal system need to be replenished. A further improvement over traditional chemical sensors is the ability to measure close to twelve inches below the surface of the water. This allows for a much more accurate reading of the pool’s chemical balance.
+
+		The final potential idea we considered is a vacuum drone to clean dirt off of hard to access areas such as rafters and high window sills. Initial stages of the drone would be user-operated to test the flight time and to focus on a lightweight design. Afterwards, the drone would be made autonomous to automatically detect surfaces to vacuum off of the floor. Devices such as this would be extremely useful in large buildings where it is not feasible to move ladders around to reach high, flat surfaces to clean dust and trash off of as well as homes with windows that are high off the ground and chandeliers. 
+
 
 	\section{Conception, Requirements, and Specifications}
-		The design conception is still under discussion. The schematic is in the works and should be a diagram of well thought out drone parts and what each section/part will function as or its job will be. Once we decide on a parts list and a time restraint on building/constructing drone to test/program, then our preliminary design will become complete.
+		Due to one of our members’ work history in the automotive industry, we initially looked towards vehicle technology. We considered the many significant safety issues drivers currently face when operating their vehicles. We also considered the safety and maintenance issues of fleet and commercial vehicles such as semi trucks. This led us to the conclusion that the most effective safety system for a vehicle would be a sensor to assist with preventive maintenance. When considering the effect the condition of tires can have on a vehicle, including stability, traction, and fuel economy, we decided that a sensor that can detect tire wear could potentially lead to the highest cost savings and prevent the most serious accidents. 
+
+		\subsection{Conception}
+			While tire pressure monitoring systems are already standard in all newer vehicles, tire tread is generally not checked unless a vehicle is routinely taken in for a tire rotation, alignment, or an air pressure check. These check-ups generally only occur every 5,000 or more miles, which may mean that the tread on some tires is only checked up to once a year. Because of this, a tire tread sensor is necessary to ensure continued safe operation of a vehicle. Such a sensor would be able to accurately detect any uneven tread wear or dangerously low tread on a wheel. The sensor is then connected to the car’s information system to alert the driver that maintenance is required to correct the tire tread issues. With further improvements, the device may also be able to detect impurities in the tire or objects lodged in the tire, potentially resulting in a blown tire. 
+
+			The product is a valuable innovation to the automotive industry. ATIS will improve safety for all  drivers and add ease of mind for a parent letting their child drive alone for the first time. Parents will be given more knowledge of the safety of the vehicle their child is driving. Companies in the automotive industry will be given a new tool to explain to their clients and customers how to ensure a safe driving experience. Companies will be able to have a visible monitor that teaches their customer safety and integrity, and develop a more trusting relationship between salesman and customer by giving the customer something more tangible and visible to build trust with salesmen. People are looking to be protected and cultivated so they will feel delighted and safe. This will create a better connection between companies and customers. 
+
+			In addition, companies with fleet vehicles such as semi trucks will be able to monitor the tread wear of their vehicles more easily, allowing for more efficient tire changes while simultaneously reducing the risk to both their own drivers and drivers in the vicinity of their vehicles by reducing the frequency of tire-related accidents.
+
+		\subsection{Requirements}
+			Once the general idea of the tire tread sensor is developed and refined, requirements for the system are developed. The tread sensor must be able to measure tire tread depth at a resolution of a minimum of 1/64''. The sensor must also be able to be either attached to the inside of the wheel well or embedded on the inside of the tire. This requirement will be further specified in further revisions as either the LIDAR or wear sensor is selected to measure tread depth. 
+
+			In order to ensure durability of the device, it must be able to withstand the general distress of normal highway and surface road driving. This requirement ensures that the device does not need to be frequently replaced and can remain in position for extended lengths of time without needing maintenance or cleaning. Additionally, the device must be extremely low-power to ensure that a battery does not need to be replaced or recharged frequently.
+
+			In order to further ensure battery life of the device, the sensor must wirelessly connect to an in-vehicle notification system. This system will alert the driver when the tread depth goes below a specified value in the 3/32''-5/32'' range so that operators will know that the tires need to be replaced soon. This early prevention system will prevent the majority of tire-caused accidents. 
+
+		\subsection{Specifications}
+			In order to meet the given requirements, the product must meet some minimum specifications. To ensure accurate tread wear readings, the sensor will be either a LIDAR mounted on the wheel well, or a wear sensor mounted inside the tire itself. To meet the durability requirements, the sensor will be securely mounted and will be made out of a durable plastic casing ensuring that the sensor and communication technology within is well protected from shock impacts.
+
+			To reduce the power consumption of the device, it will not measure tread depth and send any data within a short time after the vehicle has stopped all movement. Further battery optimizations will also be implemented as the design of the product is further created. 
+
 	
 	\section{Constraints}
-		The list of constraints should be a large list. We need to discuss among the group on how we will implement and hurdle some of these constraints with a potential budget.
+		The main design constraint for this product is budgetary. For the development of this product, we have a small budget and must therefore keep the overall cost of materials and parts to a minimum to stay within the budget. To meet this constraint, the product will be developed out of common parts that are fairly inexpensive. This constraint will assist in keeping the production cost of the final product down, allowing us to meet the low-cost requirement to allow the device to be widely used and affordable by consumers. 
 
-	\section{Ethical, Professional, and Contemporary Issues}
-		This a potential section that is on its own and not listed within the requirements of the proposal but is definitely a discussion that must be considered. These issues may be a restraint and or a part of the standards conversation that will help us implement our projects design with zero road blocks.
+	% \section{Ethical, Professional, and Contemporary Issues}
+	
 
-	\section{Engineering Standards}
-		Another section that is a part of the problem definition that will be brought out to be its own section. Standards could become a 
+	% \section{Engineering Standards}
+
 
 	\section{Design}
+		The design flow for the product will include a sensor that wirelessly detects tread wear on a tire and wirelessly connects to a central controller. This controller takes the data from the sensor and parses it into a tread depth measurement. If the tread depth is outside of an acceptable range, the operator of the vehicle is notified of the danger. This notification will be inside of the cabin of the vehicle so that the operator can see the notification while driving and does not need to manually check the tires individually to find out if there is an issue. 
 
+		Currently, we are pursuing two potential designs for the tread sensor. The first option is a LIDAR sensor attached on the inside of the wheel well. This sensor will use light waves to map the surface of the tire as it rotates. Using computer vision algorithms, the tread depth measurement will be calculated and transmitted to the controller to notify the user if necessary.
+
+		The second option is to use an embedded wear-down sensor within the tire. This sensor will measure the thickness of the rubber on the tire itself. Once the rubber is less than a certain length, the sensor will notify the controller to inform the user of the danger. While both options are potentially feasible, further research is required to determine which is the most effective low-cost option.
 
 	\section{Parts List}
+		As the design has not yet been finalized, the parts list is not complete. \autoref{tab:lidarTable} and \autoref{tab:wearDownTable} show the current expected parts required for the two potential sensing options. One will be removed once the decision is made which sensing option we will further pursue. Currently for each, a communications module is required to transmit data from the sensor to the main controller. As the notification system has not been defined yet, a simple LED is required to notify about dangerous tread depth. 
 
+		\begin{table}[b]
+			\begin{center}
+				\caption{Parts required for ATIS using a LIDAR sensor.}
+				\label{tab:lidarTable}
+				\begin{tabular}{l|l}
+					Part 			& Quantity  \\
+					\hline
+					\vspace{-0.1in}	&	\\
+					LIDAR Sensor 	& 1 \\
+					Red LED 		& 1 \\
+					Microcontroller	& 1 
+				\end{tabular}
+			\end{center}
+		\end{table}
+
+		\begin{table}[b]
+			\begin{center}
+				\caption{Parts required for ATIS using a wear-down sensor.}
+				\label{tab:wearDownTable}
+				\begin{tabular}{l|l}
+					Part 				& Quantity  \\
+					\hline
+					\vspace{-0.1in}		&	\\
+					Wear-Down Sensor 	& 1 \\
+					Red LED 			& 1 \\
+					Microcontroller 	& 1
+				\end{tabular}
+			\end{center}
+		\end{table}
 
 	\section{Prototype and System Integration}
+		By the end of this semester, our expectation is to have a working prototype of a sensor to map the surface of a tire using either a LIDAR sensor or a wear-down sensor. The sensor will send the data to a controller that will then determine the approximate tread depth. The controller will then be able to send a notification signal (likely through an LED for prototyping) to alert a user if the tread depth is outside of a specified range. 
 
+		Once these functionalities are implemented, the sensor will be improved to measure with a higher accuracy. Then, functional tests on a real vehicle will be conducted with a moving tire. From this point, optimization and further testing will be conducted to improve the device. The housing of the sensor will also be improved so that inclement weather, rough terrain, and dirt do not degrade the measurements taken. Through this process, the sensor will be made with off-the-shelf parts to stay within budget and produce a low-cost final product. 
 
-	\section{Delivrables}
+		\begin{figure*}[t]
+			\centering
+			\begin{ganttchart}[y unit title=0.5cm, y unit chart=0.6cm, x unit=0.75cm, vgrid, hgrid, title label anchor/.style={below=-1.6ex}, title left shift=0, title right shift=0, title height=1, bar/.style={fill=gray!50}, incomplete/.style={fill=white}, progress label text={}, bar height=0.5, group right shift=0, group top shift=.6, group height=.3]{1}{17}
+				% Month labels
+				\gantttitle{January}{3}
+				\gantttitle{February}{4} 
+				\gantttitle{March}{5} 
+				\gantttitle{April}{4} 
+				\gantttitle{May}{1}  \\
 
+				% First day of week labels
+				\gantttitle{13}{1}
+				\gantttitle{20}{1}
+				\gantttitle{27}{1}
+
+				\gantttitle{3}{1}
+				\gantttitle{10}{1}
+				\gantttitle{17}{1}
+				\gantttitle{24}{1}
+
+				\gantttitle{2}{1}
+				\gantttitle{9}{1}
+				\gantttitle{16}{1}
+				\gantttitle{23}{1}
+				\gantttitle{30}{1}
+
+				\gantttitle{6}{1}
+				\gantttitle{13}{1}
+				\gantttitle{20}{1}
+				\gantttitle{27}{1}
+
+				\gantttitle{4}{1} \\
+
+				% Tasks
+				\ganttbar{Project Proposal}{1}{14} \\
+				\ganttbar{Sensor Design}{2}{12} \\
+				\ganttbar{Housing Design}{4}{7} \\
+				\ganttbar{Alert System Design}{8}{12} \\
+				\ganttbar{Order Parts}{13}{17} \\
+				\ganttbar{Initial Construction}{14}{16} \\
+				\ganttbar{Redesign}{15}{17}
+
+				% Relations 
+				% \ganttlink{elem1}{elem4}
+				% \ganttlink{elem2}{elem4}
+				% \ganttlink{elem3}{elem4}
+			\end{ganttchart}
+			\caption{Tasks for Spring 2020}
+			\label{fig:ganttChartSP2020}
+		\end{figure*}
+
+		\begin{figure*}[t]
+			\centering
+			\begin{ganttchart}[y unit title=0.5cm, y unit chart=0.6cm, x unit=0.85cm, vgrid, hgrid, title label anchor/.style={below=-1.6ex}, title left shift=0, title right shift=0, title height=1, bar/.style={fill=gray!50}, incomplete/.style={fill=white}, progress label text={}, bar height=0.5, group right shift=0, group top shift=.6, group height=.3]{1}{15}
+				% Month labels
+				\gantttitle{May}{3}
+				\gantttitle{June}{5} 
+				\gantttitle{July}{4} 
+				\gantttitle{August}{3} \\
+
+				% First day of week labels
+				\gantttitle{11}{1}
+				\gantttitle{18}{1}
+				\gantttitle{25}{1}
+
+				\gantttitle{1}{1}
+				\gantttitle{8}{1}
+				\gantttitle{15}{1}
+				\gantttitle{22}{1}
+				\gantttitle{29}{1}
+
+				\gantttitle{6}{1}
+				\gantttitle{13}{1}
+				\gantttitle{20}{1}
+				\gantttitle{27}{1}
+
+				\gantttitle{3}{1}
+				\gantttitle{10}{1}
+				\gantttitle{17}{1} \\
+
+				% Tasks
+				\ganttbar{Redesign}{1}{3} \\
+				\ganttbar{Testing}{3}{8} \\
+				\ganttbar{\quad\quad\enspace Final Redesign}{8}{15}
+
+				% Relations 
+				% \ganttlink{elem0}{elem1}
+
+			\end{ganttchart}
+			\caption{Tasks for Summer 2020}
+			\label{fig:ganttChartSU2020}
+		\end{figure*}
+
+		\begin{figure*}[t]
+			\centering
+			\begin{ganttchart}[y unit title=0.5cm, y unit chart=0.6cm, x unit=0.796875cm, vgrid, hgrid, title label anchor/.style={below=-1.6ex}, title left shift=0, title right shift=0, title height=1, bar/.style={fill=gray!50}, incomplete/.style={fill=white}, progress label text={}, bar height=0.5, group right shift=0, group top shift=.6, group height=.3]{1}{16}
+				% Month labels
+				\gantttitle{August}{2}
+				\gantttitle{September}{4} 
+				\gantttitle{October}{4} 
+				\gantttitle{November}{5} 
+				\gantttitle{Dec.}{1}  \\
+
+				% First day of week labels
+				\gantttitle{24}{1}
+				\gantttitle{31}{1}
+
+				\gantttitle{7}{1}
+				\gantttitle{14}{1}
+				\gantttitle{21}{1}
+				\gantttitle{28}{1}
+
+				\gantttitle{5}{1}
+				\gantttitle{12}{1}
+				\gantttitle{19}{1}
+				\gantttitle{26}{1}
+
+				\gantttitle{2}{1}
+				\gantttitle{9}{1}
+				\gantttitle{16}{1}
+				\gantttitle{23}{1}
+				\gantttitle{30}{1}
+
+				\gantttitle{7}{1} \\
+
+				% Tasks
+				\ganttbar{Final Redesign}{1}{2} \\
+				\ganttbar{Product Testing}{1}{14} \\
+				\ganttbar{Implementation}{3}{14} \\
+				\ganttbar{Optimization}{4}{12} \\
+				\ganttbar{\quad Final Presentation}{12}{16}
+
+				% Relations 
+				% \ganttlink{elem0}{elem1}
+			\end{ganttchart}
+			\caption{Tasks for Fall 2020}
+			\label{fig:ganttChartFA2020}
+		\end{figure*}
+
+	\section{Deliverables}
+		The final product for this project will consist of a tire tread sensor using either a LIDAR sensor connected to the wheel of the vehicle or a wear-down sensor embedded inside of a vehicle's tire. These sensors will measure the tread depth of the tire and will send this data to the main controller. This controller will then decide if it is necessary to inform the user of any potential danger. This signal to the operator will inform them if it is time, or soon will be, to replace the tire(s). 
+
+		The product itself will be low-cost to allow consumers to afford the sensor. Since many vehicle operators are not car savvy, the system will be designed to be relatively easy to install and set up. In order to prevent frequenc replacements, the product will be encased in a protective layer to ensure that it is durable and can last through rough driving conditions and survive impact forces. The on-board battery will be replaceable or rechargable so that the consumer does not need to purchase a new device or replace it. To reduce the frequency of this, the product will be extremely low-power such that replacing batteries or recharging is needed very infrequently.
+
+		Once the product itself is complete, we will compose a final report discussing our findings, results, and conclusions. This report will discuss the specifics of the final product, the difficulties in completing it, and the specific details of how it functions. A poster and presentation will also be prepared to give a high-level understanding of the product and how it functions to business leaders, professors, and peers. 
 
 	\section{Timeline}
+		To ensure the timely completion of the project, three Gantt charts haev been created. These charts supply us with expected milestones for the project. This allows us to visually determine whether or not we are on schedule to complete the project. The Gantt chart is a constantly adjusting figure that will become more specific as the design for the product is further refined. \autoref{fig:ganttChartSP2020}, \autoref{fig:ganttChartSU2020}, and \autoref{fig:ganttChartFA2020} are the Gantt charts outlining our planned tasks over the spring, summer, and fall of 2020, respectively. 
 
+		\subsection{Teamwork}
+			The timeline of the project can be broken into various phases. Although each team member will provide an equal amount of contribution, each will take a lead on a different phase of the project. The key project phases along with leaders of each phase is shown in \autoref{tab:phaseLeaders}. The ultimate goal is to be completed with the design of our prototype after the first semester. This will allow for testing and further optimization of the product during the implementation phase. This timeline will also allow extra time for unexpected issues that will arise during implementation. 
+
+			\begin{table}[tb]
+				\centering
+				\begin{tabularx}{\linewidth}{l|l}
+					Project Phase 						& Leader \\
+					\hline
+					\vspace{-0.1in}						& \\
+					Research 							& Nicholas Chiapputo \\
+					Project Definition					& Brandon Jones \\
+					Specification and Requirements 		& Tim McCoig \\
+					Design and Algorithm Development 	& Nicholas Chiapputo \\
+					Testing and Optimization 			& Brandon Jones \\
+					Prototype Implementation 			& Samuel Simmons
+				\end{tabularx}
+				\caption{Leaders for each key project phase.}
+				\label{tab:phaseLeaders}
+			\end{table}
 
 	\begin{thebibliography}{00}
-		\bibitem{githubSource} [Online].Available: \url{https://github.com/NickChiapputo/SeniorDesign}
+		\bibitem{cdcKeyStats} Center for Disease Control and Prevention, ``Key Data and Statistics,'' 2015. [Online]. Available: \url{https://www.cdc.gov/injury/wisqars/overview/key_data.html}
+		\bibitem{nhtsaCrashStats} National Highway Traffic Safety Administration, ``Tire-Related Factors in the Pre-Crash Phase,'' 2012. [Online]. Available: \url{https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/811617}
 	\end{thebibliography}
 \end{document}
