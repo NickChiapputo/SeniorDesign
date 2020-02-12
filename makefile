@@ -1,5 +1,6 @@
 PDF = pdflatex
-OUT_FILE = Proposal/Proposal
+# OUT_FILE = Proposal/Proposal$(shell date +'_%m.%d')
+# OUT_FILE = Proposal/Proposal
 SRC = Proposal/proposal.tex
 
 pdf: clean $(SRC)
