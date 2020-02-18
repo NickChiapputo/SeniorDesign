@@ -1,0 +1,6 @@
+cmake_minimum_required( VERSION 2.8 )
+project( grooveDetection )
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( grooveDetection grooveDetection.cpp )
+target_link_libraries( grooveDetection ${OpenCV_LIBS} )
