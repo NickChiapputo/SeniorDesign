@@ -35,7 +35,7 @@ int main( int argc, char ** argv )
 
 
 	// Gaussian Blurring with 5x5 Gaussian kernel
-	int kernel = 3;
+	int kernel = 13;
 	GaussianBlur( gray, gaussian, Size( kernel, kernel ), 0 );
 
 
