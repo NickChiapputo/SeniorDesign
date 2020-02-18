@@ -71,7 +71,7 @@ int main( int argc, char ** argv )
 	Mat line_image = image * 0;
 
 	// HoughLines( canny, lines, rho, theta, threshold, srn, stn );
-	HoughLines( canny, lines, 1, theta, threshold, srn, stn );
+	HoughLines( canny, lines, rho, theta, threshold, srn, stn );
 
 	// Draw Hough lines
 	Scalar color = Scalar( 0, 0, 255 );
@@ -102,11 +102,12 @@ int main( int argc, char ** argv )
 	// Probabilistic Hough Line Transform
 	houghP = cannyOverlay.clone();
 	vector<Vec4i> linesP;
-	double rhoP = 1;					// Check in small rho increments
-	double thetaP = 1 * CV_PI / 180;	// Check in small theta increments
-	int thresholdP = 100;				// Number of points needed to detect lines. Gets rid of sipes and block borders
+	double rhoP = 1;										// Check in small rho increments
+	double thetaP = 1 * CV_PI / 180;						// Check in small theta increments
+	int thresholdP = 100;									// Number of points needed to detect lines. Gets rid of sipes and block borders
 	double minLineLength = 0.5 * cannyOverlay.rows;			// Only check for long lines (>= 90% of height)
 	double maxLineGap = 0.15 * cannyOverlay.cols;			// Allow large gaps between lines. This overcomes the issue of blocks disrupting the grooves
+	
 	HoughLinesP( canny, linesP, rhoP, thetaP, thresholdP, minLineLength, maxLineGap );
 
 	double averageTheta = 0;
