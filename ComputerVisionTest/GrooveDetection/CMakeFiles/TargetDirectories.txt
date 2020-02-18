@@ -1,3 +1,0 @@
-/home/nick/Documents/SeniorDesign/ComputerVisionTest/GrooveDetection/CMakeFiles/edit_cache.dir
-/home/nick/Documents/SeniorDesign/ComputerVisionTest/GrooveDetection/CMakeFiles/rebuild_cache.dir
-/home/nick/Documents/SeniorDesign/ComputerVisionTest/GrooveDetection/CMakeFiles/grooveDetection.dir
