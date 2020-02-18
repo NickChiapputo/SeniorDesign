@@ -16,7 +16,7 @@ int main( int argc, char ** argv )
 
 
 	// Create matrix to hold image for each step
-	Mat image, gray, gaussian, canny, hough, linesHP, houghP;
+	Mat image, gray, gaussian, canny, cannyOverlay, hough, linesHP, houghP;
 
 
 	// Create an image and read from the given source
@@ -46,12 +46,22 @@ int main( int argc, char ** argv )
 	Canny( image, canny, low_threshold, high_threshold, apertureSize );
 
 
+	// Overlay canny on source image
+	cannyOverlay = Scalar::all( 0 );		
+	// image.copyTo( cannyOverlay, canny );								// Copy image source relative to canny output. One option of overlayed output
+	
+	// Second option for overlayed output. Blending by adding weighted values
+	cannyOverlay = canny.clone();										// Copy canny image
+	cvtColor( cannyOverlay, cannyOverlay, COLOR_GRAY2BGR );				// Convert canny image to BGR
+	addWeighted( image, 0.4, cannyOverlay, 1.0, 0.0, cannyOverlay );	// Blend source image with canny image
+
+
 	// Change canny to BGR image
-	// Mat cannyBGR;
 	cvtColor( canny, hough, COLOR_GRAY2BGR );
 
 
 	// Standard Hough Line detection
+	hough = cannyOverlay.clone();
 	vector<Vec2f> lines;			// Vector that stores parameters (r, theta) of detected lines
 	double rho = 1;					// The resolution of the parameter r in pixels.
 	double theta = CV_PI / 180;		// The resolution of the paramter theta in radians. CV_PI / 180 = 1 degree
@@ -88,12 +98,12 @@ int main( int argc, char ** argv )
 
 
 	// Probabilistic Hough Line Transform
-	houghP = image.clone();
+	houghP = cannyOverlay.clone();
 	vector<Vec4i> linesP;
 	double rhoP = 1;					// Check in small rho increments
 	double thetaP = 1 * CV_PI / 180;	// Check in small theta increments
 	int thresholdP = 100;				// Number of points needed to detect lines. Gets rid of sipes and block borders
-	double minLineLength = 100;			// Only check for long lines
+	double minLineLength = 400;			// Only check for long lines
 	double maxLineGap = 500;			// Allow large gaps between lines. This overcomes the issue of blocks disrupting the grooves
 	HoughLinesP( canny, linesP, rhoP, thetaP, thresholdP, minLineLength, maxLineGap );
 
@@ -137,7 +147,7 @@ int main( int argc, char ** argv )
 		else if( key == 52 )	// Key press = '4'
 		{
 			cout << "Change Display: Canny\n";
-			imshow( "Display", canny );
+			imshow( "Display", cannyOverlay );
 		}
 		else if( key == 53 )	// Key press = '5'
 		{
