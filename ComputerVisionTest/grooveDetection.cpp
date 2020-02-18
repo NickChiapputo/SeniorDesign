@@ -40,7 +40,7 @@ int main( int argc, char ** argv )
 
 
 	// Canny image detection
-	int low_threshold = 5;
+	int low_threshold = 100;
 	int high_threshold = 150;
 	int apertureSize = 3;
 	Canny( image, canny, low_threshold, high_threshold, apertureSize );
@@ -90,11 +90,11 @@ int main( int argc, char ** argv )
 	// Probabilistic Hough Line Transform
 	houghP = image.clone();
 	vector<Vec4i> linesP;
-	double rhoP = 1;
-	double thetaP = 1 * CV_PI / 180;
-	int thresholdP = 150;
-	double minLineLength = 5;
-	double maxLineGap = 500;
+	double rhoP = 1;					// Check in small rho increments
+	double thetaP = 1 * CV_PI / 180;	// Check in small theta increments
+	int thresholdP = 100;				// Number of points needed to detect lines. Gets rid of sipes and block borders
+	double minLineLength = 100;			// Only check for long lines
+	double maxLineGap = 500;			// Allow large gaps between lines. This overcomes the issue of blocks disrupting the grooves
 	HoughLinesP( canny, linesP, rhoP, thetaP, thresholdP, minLineLength, maxLineGap );
 
 	// Draw Hough Probabilistic Lines
@@ -102,8 +102,12 @@ int main( int argc, char ** argv )
 	for( size_t i = 0; i < linesP.size(); i++ )
 	{
 		Vec4i l = linesP[ i ];
+
+		// Only check for vertical lines whose bottom and top X values are within 20 of each other
 		if( abs( l[ 0 ] - l[ 2 ] ) < 20 )
+		{
 			line( houghP, Point( l[ 0 ], l[ 1 ] ), Point( l[ 2 ], l[ 3 ] ), color, 3, LINE_AA );
+		}
 	}
 
 	// Create window to display image in
