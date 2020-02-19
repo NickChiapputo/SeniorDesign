@@ -134,10 +134,10 @@ int main( int argc, char ** argv )
 
 			line( houghP, Point( l[ 0 ], l[ 1 ] ), Point( l[ 2 ], l[ 3 ] ), color, thickness, LINE_AA );
 		}
-		// else
-		// {
-		// 	line( houghP, Point( l[ 0 ], l[ 1 ] ), Point( l[ 2 ], l[ 3 ] ), Scalar( 0, 255, 0 ), thickness - 1, LINE_AA );
-		// }
+		else
+		{
+			line( houghP, Point( l[ 0 ], l[ 1 ] ), Point( l[ 2 ], l[ 3 ] ), Scalar( 0, 255, 0 ), thickness - 1, LINE_AA );
+		}
 	}
 	cout << "Average Theta: " << averageTheta << "\n\n";
 
@@ -238,10 +238,7 @@ int main( int argc, char ** argv )
 
 
 	// Welcome to the groove zone
-	// grooveZone = canny.clone();										// Copy canny image
-	// cvtColor( grooveZone, grooveZone, COLOR_GRAY2BGR );				// Convert canny image to BGR
-	// addWeighted( image, 1.0, grooveZone, 1.0, 0.0, grooveZone );	// Blend source image with canny image (full color for both)
-	grooveZone = grouped.clone();
+	grooveZone = image.clone();
 
 	// Draw rectangles where grooves are estimated to be
 	cout << "\n";
@@ -255,7 +252,7 @@ int main( int argc, char ** argv )
 
 		// Draw filled polygon on copy
 		int numPoints = 4;									// Four points on the polygon
-		Scalar rectColor = Scalar( 0, 255, 0 );				// Color of the polygons
+		Scalar rectColor = Scalar( 119, 221, 119 );			// Color of the polygons
 		vector<Point> tmp;									// Create vector of points to connect (the polygon is drawn in order of points added)
 		tmp.push_back( Point( line0[ 0 ], line0[ 1 ] ) );	// 		Select top point of line 1
 		tmp.push_back( Point( line1[ 0 ], line1[ 1 ] ) );	// 		Connect to top point of line 2
@@ -265,7 +262,7 @@ int main( int argc, char ** argv )
 		fillPoly( grooveZoneCpy, polyPoints, &numPoints, 1, rectColor, LINE_AA );
 
 		// Weight the 
-		double alpha = 0.4;
+		double alpha = 0.6;
 		addWeighted( grooveZoneCpy, alpha, grooveZone, 1.0 - alpha, 0.0, grooveZone );
 
 		// addWeighted( color, alpha, roi, 1.0 - alpha, 0.0, roi );
@@ -324,7 +321,7 @@ int main( int argc, char ** argv )
 	}
 
 	// Save image file
-	imwrite( "output.jpg", grooveZone );
+	// imwrite( "output.jpg", grooveZone );
 
 	return 0;
 }
