@@ -26,3 +26,6 @@ runGrooveDetection: grooveDetection
 
 cleanGrooveDetection: 
 	cd $(GROOVE_DIR) && rm -rf CMakeFiles && rm -f cmake_install.cmake CMakeCache.txt $(GROOVE_EXEC)
+
+cleanAll: cleanCannyTest cleanGrooveDetection
+
