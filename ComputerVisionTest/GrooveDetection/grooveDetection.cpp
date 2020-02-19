@@ -16,7 +16,7 @@ int main( int argc, char ** argv )
 
 
 	// Create matrix to hold image for each step
-	Mat image, gray, gaussian, canny, cannyOverlay, hough, linesHP, houghP, grouped;
+	Mat image, gray, gaussian, canny, cannyOverlay, hough, linesHP, houghP, grouped, grooveZone;
 
 
 	// Create an image and read from the given source
@@ -53,7 +53,9 @@ int main( int argc, char ** argv )
 	// Second option for overlayed output. Blending by adding weighted values
 	cannyOverlay = canny.clone();										// Copy canny image
 	cvtColor( cannyOverlay, cannyOverlay, COLOR_GRAY2BGR );				// Convert canny image to BGR
-	addWeighted( image, 0.4, cannyOverlay, 1.0, 0.0, cannyOverlay );	// Blend source image with canny image
+
+	double cannyOverlayAlpha = 0.7;
+	addWeighted( image, cannyOverlayAlpha, cannyOverlay, 1.0, 0.0, cannyOverlay );	// Blend source image with canny image
 
 
 	// Change canny to BGR image
@@ -123,9 +125,6 @@ int main( int argc, char ** argv )
 		double hypotenuseLength = sqrt( ( abs( l[ 0 ] - l[ 2 ] ) ) * ( abs( l[ 0 ] - l[ 2 ] ) ) + ( abs( l[ 1 ] - l[ 3 ] ) ) * ( abs( l[ 1 ] - l[ 3 ] ) ) );
 		averageTheta += asin( abs( l[ 3 ] - l[ 1 ] ) / hypotenuseLength ) * 180 / ( CV_PI * linesP.size() );
 
-		// cout 	<< "( " << l[ 0 ] << ", " << l[ 1 ] << " ) -> ( " << l[ 2 ] << ", " << l[ 3 ] << " )\nTheta = sin^(-1)( " 
-		// 		<< abs( l[ 3 ] - l[ 1 ] ) << " / " << hypotenuseLength << " ) = " << asin( abs( l[ 3 ] - l[ 1 ] ) / hypotenuseLength ) * 180 / CV_PI << "\n\n";
-
 		// Only check for vertical lines whose bottom and top X values are within 20 of each other
 		if( abs( l[ 0 ] - l[ 2 ] ) < 20 )
 		{
@@ -135,57 +134,142 @@ int main( int argc, char ** argv )
 
 			line( houghP, Point( l[ 0 ], l[ 1 ] ), Point( l[ 2 ], l[ 3 ] ), color, thickness, LINE_AA );
 		}
+		// else
+		// {
+		// 	line( houghP, Point( l[ 0 ], l[ 1 ] ), Point( l[ 2 ], l[ 3 ] ), Scalar( 0, 255, 0 ), thickness - 1, LINE_AA );
+		// }
 	}
-	// cout << "Average Theta: " << averageTheta << "\n";
+	cout << "Average Theta: " << averageTheta << "\n\n";
 
 
 	// Find groups of houghP lines and average them together
-	// grouped = cannyOverlay.clone();
-	// for( size_t i = 0; i < selectedPLines.size(); i++ )
-	// {
-	// 	Vec4i currentLine = selectedPLines[ i ];
+	grouped = cannyOverlay.clone();
+	vector<Vec4i> averagedLines;
+	for( size_t i = 0; i < selectedPLines.size(); i++ )
+	{
+		Vec4i currentLine = selectedPLines[ i ];
+		Vec4i avgLine = Vec4i( 0, 0, 0, 0 );
 
-	// 	double currMedian = ( currentLine[ 0 ] + currentLine[ 2 ] ) / 2;
+		// Determine which coordinate is the top coordinate
+		// First coordinate of average line is the top coordinate
+		avgLine[ 0 ] += currentLine[ 1 ] < currentLine[ 3 ] ? currentLine[ 0 ] : currentLine[ 2 ];
+		avgLine[ 1 ] += currentLine[ 1 ] < currentLine[ 3 ] ? currentLine[ 1 ] : currentLine[ 3 ];
+		avgLine[ 2 ] += currentLine[ 1 ] < currentLine[ 3 ] ? currentLine[ 2 ] : currentLine[ 0 ];
+		avgLine[ 3 ] += currentLine[ 1 ] < currentLine[ 3 ] ? currentLine[ 3 ] : currentLine[ 1 ];
 
-	// 	Vec4i avgLine = Vec4i( 0, 0, 0, 0 );
-	// 	int numLines = 0;
-	// 	for( size_t j = i + 1; j < selectedPLines.size(); j++ )
-	// 	{
-	// 		Vec4i compareLine = selectedPLines[ j ];
-	// 		double compareMedian = ( compareLine[ 0 ] + compareLine[ 2 ] ) / 2;
+		cout << "( " << currentLine[ 0 ] << ", " << currentLine[ 1 ] << " ) -> ( " << currentLine[ 2 ] << ", " << currentLine[ 3 ] << " )\n";
 
-	// 		// If center of lines is within 20 pixels
-	// 		if( abs( compareMedian - currMedian ) > 20 )
-	// 		{
-	// 			cout << "( " << compareLine[ 0 ] << ", " << compareLine[ 1 ] << " ) -> ( " << compareLine[ 2 ] << ", " << compareLine[ 3 ] << " )\n";
+		double currMedian = ( currentLine[ 0 ] + currentLine[ 2 ] ) / 2;
 
-	// 			numLines++;
-	// 			avgLine[ 0 ] += compareLine[ 0 ];
-	// 			avgLine[ 1 ] += compareLine[ 1 ];
-	// 			avgLine[ 2 ] += compareLine[ 2 ];
-	// 			avgLine[ 3 ] += compareLine[ 3 ];
+		int numLines = 1;
+		for( size_t j = i + 1; j < selectedPLines.size(); j++ )
+		{
+			Vec4i compareLine = selectedPLines[ j ];
+			double compareMedian = ( compareLine[ 0 ] + compareLine[ 2 ] ) / 2;
 
-	// 			// selectedPLines.erase( selectedPLines.begin() + j );
-	// 		}
-	// 	}
+			// If center of lines is within 20 pixels
+			if( abs( compareMedian - currMedian ) < 30 || abs( currentLine[ 0 ] - compareLine[ 0 ] ) < 30 || abs( currentLine[ 2 ] - compareLine[ 2 ] ) < 30 )
+			{
+				cout << "( " << compareLine[ 0 ] << ", " << compareLine[ 1 ] << " ) -> ( " << compareLine[ 2 ] << ", " << compareLine[ 3 ] << " )\n";
 
-	// 	if( numLines != 0 )
-	// 	{
-	// 		cout << avgLine[ 0 ] << " / " << numLines << " = ";
-	// 		avgLine[ 0 ] = avgLine[ 0 ] / numLines;
-	// 		cout << avgLine[ 0 ] << "\n" << avgLine[ 1 ] << " / " << numLines << " = ";
-	// 		avgLine[ 1 ] = avgLine[ 1 ] / numLines;
-	// 		cout << avgLine[ 1 ] << "\n" << avgLine[ 2 ] << " / " << numLines << " = ";
-	// 		avgLine[ 2 ] = avgLine[ 2 ] / numLines;
-	// 		cout << avgLine[ 2 ] << "\n" << avgLine[ 3 ] << " / " << numLines << " = ";
-	// 		avgLine[ 3 ] = avgLine[ 3 ] / numLines;
-	// 		cout << avgLine[ 3 ] << "\n";
+				numLines++;
 
-	// 		cout << "( " << avgLine[ 0 ] << ", " << avgLine[ 1 ] << " ) -> ( " << avgLine[ 2 ] << ", " << avgLine[ 3 ] << " )\n\n";
+				// Determine which coordinate is the top coordinate
+				// First coordinate of average line is the top coordinate
+				avgLine[ 0 ] += compareLine[ 1 ] < compareLine[ 3 ] ? compareLine[ 0 ] : compareLine[ 2 ];
+				avgLine[ 1 ] += compareLine[ 1 ] < compareLine[ 3 ] ? compareLine[ 1 ] : compareLine[ 3 ];
+				avgLine[ 2 ] += compareLine[ 1 ] < compareLine[ 3 ] ? compareLine[ 2 ] : compareLine[ 0 ];
+				avgLine[ 3 ] += compareLine[ 1 ] < compareLine[ 3 ] ? compareLine[ 3 ] : compareLine[ 1 ];
 
-	// 		line( grouped, Point( avgLine[ 0 ], avgLine[ 1 ] ), Point( avgLine[ 2 ], avgLine[ 3 ] ), color, thickness, LINE_AA );
-	// 	}
-	// }
+
+				// Remove line from the selected lines list
+				// It should not be considered in the averages of another grouping
+				selectedPLines.erase( selectedPLines.begin() + j );
+
+
+				// Decrement iterator
+				// Next index of the list would be skipped after removal of previous line
+				j--;
+			}
+		}
+
+		if( numLines != 0 )
+		{
+			cout << avgLine[ 0 ] << " / " << numLines << " = ";
+			avgLine[ 0 ] = avgLine[ 0 ] / numLines;
+			cout << avgLine[ 0 ] << "\n" << avgLine[ 1 ] << " / " << numLines << " = ";
+			avgLine[ 1 ] = avgLine[ 1 ] / numLines;
+			cout << avgLine[ 1 ] << "\n" << avgLine[ 2 ] << " / " << numLines << " = ";
+			avgLine[ 2 ] = avgLine[ 2 ] / numLines;
+			cout << avgLine[ 2 ] << "\n" << avgLine[ 3 ] << " / " << numLines << " = ";
+			avgLine[ 3 ] = avgLine[ 3 ] / numLines;
+			cout << avgLine[ 3 ] << "\n";
+
+			averagedLines.push_back( avgLine );
+
+			cout << "( " << avgLine[ 0 ] << ", " << avgLine[ 1 ] << " ) -> ( " << avgLine[ 2 ] << ", " << avgLine[ 3 ] << " )\n\n";
+
+			line( grouped, Point( avgLine[ 0 ], avgLine[ 1 ] ), Point( avgLine[ 2 ], avgLine[ 3 ] ), color, thickness, LINE_AA );
+		}
+	}
+
+
+	// Sort lines by top left x
+	for( size_t i = 1; i < averagedLines.size(); i++ )
+	{
+		Vec4i current = averagedLines[ i ];
+
+		size_t j = i - 1;
+		while( j >= 0 && averagedLines[ j ][ 0 ] > current[ 0 ] )
+		{
+			// Swap
+			averagedLines[ j + 1 ] = averagedLines[ j ];
+			j--;
+		}
+		averagedLines[ j + 1 ] = current;
+	}
+
+	cout << "Sorted List of Lines: \n";
+	for( size_t i = 0; i < averagedLines.size(); i++ )
+	{
+		Vec4i l = averagedLines[ i ];
+		cout << "( " << l[ 0 ] << ", " << l[ 1 ] << " ) -> ( " << l[ 2 ] << ", " << l[ 3 ] << " )\n";
+	}
+
+
+	// Welcome to the groove zone
+	// grooveZone = canny.clone();										// Copy canny image
+	// cvtColor( grooveZone, grooveZone, COLOR_GRAY2BGR );				// Convert canny image to BGR
+	// addWeighted( image, 1.0, grooveZone, 1.0, 0.0, grooveZone );	// Blend source image with canny image (full color for both)
+	grooveZone = grouped.clone();
+
+	// Draw rectangles where grooves are estimated to be
+	cout << "\n";
+	for( size_t i = 0; i < averagedLines.size() - 1; i+= 2 )
+	{
+		Vec4i line0 = averagedLines[ i ];
+		Vec4i line1 = averagedLines[ i + 1];
+
+		// Create copy of grooveZone
+		Mat grooveZoneCpy = grooveZone.clone();
+
+		// Draw filled polygon on copy
+		int numPoints = 4;									// Four points on the polygon
+		Scalar rectColor = Scalar( 0, 255, 0 );				// Color of the polygons
+		vector<Point> tmp;									// Create vector of points to connect (the polygon is drawn in order of points added)
+		tmp.push_back( Point( line0[ 0 ], line0[ 1 ] ) );	// 		Select top point of line 1
+		tmp.push_back( Point( line1[ 0 ], line1[ 1 ] ) );	// 		Connect to top point of line 2
+		tmp.push_back( Point( line1[ 2 ], line1[ 3 ] ) );	// 		Connect to bottom point of line 2
+		tmp.push_back( Point( line0[ 2 ], line0[ 3 ] ) );	// 		Connect to bottom point of line 1
+		const Point * polyPoints[ 1 ] = { &tmp[ 0 ] };		// Create pointer to first element of the point list
+		fillPoly( grooveZoneCpy, polyPoints, &numPoints, 1, rectColor, LINE_AA );
+
+		// Weight the 
+		double alpha = 0.4;
+		addWeighted( grooveZoneCpy, alpha, grooveZone, 1.0 - alpha, 0.0, grooveZone );
+
+		// addWeighted( color, alpha, roi, 1.0 - alpha, 0.0, roi );
+	}
 
 
 	// Create window to display image in
@@ -227,15 +311,20 @@ int main( int argc, char ** argv )
 			cout << "Change Display: Probabilistic Hough Lines\n";
 			imshow( "Display", houghP );
 		}
-		// else if( key == 55 )	// Key press = '7'
-		// {
-		// 	cout << "Change Display: Probabilistic Hough Lines with grouped lines\n";
-		// 	imshow( "Display", grouped );
-		// }
+		else if( key == 55 )	// Key press = '7'
+		{
+			cout << "Change Display: Probabilistic Hough Lines with grouped lines\n";
+			imshow( "Display", grouped );
+		}
+		else if( key == 56 )	// Key press = '8'
+		{
+			cout << "Change Display: Groove detection zone\n";
+			imshow( "Display", grooveZone );
+		}
 	}
 
 	// Save image file
-	// imwrite( "output.jpg", houghP );
+	imwrite( "output.jpg", grooveZone );
 
 	return 0;
 }
