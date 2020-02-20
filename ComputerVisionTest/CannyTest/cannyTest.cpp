@@ -19,7 +19,7 @@ int main( int argc, char ** argv )
 	while( key == 114 )
 	{
 		// Create matrix to hold image for each step
-		Mat image, gray, gaussian, canny, hough, linesHP, houghP;
+		Mat image, gray, gaussian, canny, cannyOverlay;
 
 
 		// Create an image and read from the given source
@@ -37,8 +37,8 @@ int main( int argc, char ** argv )
 		cvtColor( image, gray, COLOR_BGR2GRAY );
 
 
-		// Gaussian Blurring with 5x5 Gaussian kernel
-		int kernel = 13;
+		// Gaussian Blurring with user defined Gaussian kernel
+		int kernel = 5;
 
 		cout << "Gaussian Blur:\n" << "Kernel (odd): ";
 		cin >> kernel;
@@ -58,12 +58,22 @@ int main( int argc, char ** argv )
 		cout << "Aperture Size (3-7): ";
 		cin >> apertureSize;
 
-		Canny( image, canny, low_threshold, high_threshold, apertureSize );
+		Canny( gaussian, canny, low_threshold, high_threshold, apertureSize );
+
+
+		// Overlay canny on source image
+		cannyOverlay = Scalar::all( 0 );		
+		// image.copyTo( cannyOverlay, canny );								// Copy image source relative to canny output. One option of overlayed output
+		
+		// Second option for overlayed output. Blending by adding weighted values
+		cannyOverlay = canny.clone();										// Copy canny image
+		cvtColor( cannyOverlay, cannyOverlay, COLOR_GRAY2BGR );				// Convert canny image to BGR
+		addWeighted( image, 0.4, cannyOverlay, 1.0, 0.0, cannyOverlay );	// Blend source image with canny image
 
 
 		// Create window to display image in
 		namedWindow( "Display", WINDOW_AUTOSIZE );
-		imshow( "Display", canny );
+		imshow( "Display", cannyOverlay );
 
 
 		// Wait for a keystroke in the window, then exit
