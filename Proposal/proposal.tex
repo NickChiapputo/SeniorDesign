@@ -8,7 +8,7 @@
 \usepackage{amsmath}			% Used for equation reference
 \usepackage{amsfonts}			% Used for equation symbols
 \usepackage[export]{adjustbox}	% Used to left align selected figures
-%\usepackage{siunitx} 			% Used to align decimals in table
+\usepackage{siunitx} 			% Used to align decimals in table and for degree symbl \ang{}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \usepackage{algorithm,algpseudocode}			% Used to create an algorithm block
@@ -25,7 +25,7 @@
 	colorlinks = true,
 	linkcolor = blue,
 	filecolor = magenta,
-	urlcolor = cyan,
+	urlcolor = black,
 	citecolor = blue,
 	pdftitle = {Autonomous Tread Identification System},
 	pdfpagemode = UseOutlines,
@@ -33,7 +33,7 @@
 
 \begin{document}
 
-	\title{ Autonomous Tread Identification System }
+	\title{ \vspace{-0.0575in} Autonomous Tread Identification System }
 
 	\author{	Senior Design I Student Proposal \\
 				University of North Texas Department of Electrical Engineering \\
@@ -69,7 +69,7 @@
 
 			ATIS will be able to measure tread depth on most, if not all, all-season tires. The tread detecting system can also lead to improved tire maintenance. The system operates by informing drivers on when to go to a mechanic shop, which leads to money saving opportunities for customers. The system keeps the driver more informed on when they may need to purchase tires rather than feeling like they were manipulated or tricked into buying tires due to a lack of knowledge. This also allows the driver to become more trusting of tire sales representatives as drivers tend to be more trusting of vehicle sensors than salesmen.
 
-			Once the ultimate goals of ATIS have been achieved, we could further increase the specifications of the system by enabling the system to measure special tires such as off-road, mud, and truck tires. Another potential improvement is to dynamically estimating a tire’s lifespan based on the driver’s habits and detecting foreign metal objects penetrating the tire. If successful, we could release the product to surrounding semi truck, automobile services, and tire manufacturer companies at a low-cost and profitable rate.
+			Once the goals of ATIS are achieved, we can further increase the specifications of the system by enabling the system to measure special tires such as off-road, mud, and truck tires. Another potential improvement is to dynamically estimating a tire’s lifespan based on the driver’s habits and detecting foreign metal objects penetrating the tire. If successful, we could release the product to surrounding semi truck, automobile services, and tire manufacturer companies at a low-cost and profitable rate.
 
 		\textit{Terminology}:
 		\begin{itemize}
@@ -89,7 +89,7 @@
 
 		A second potential idea we developed is a smart pool sensor. The smart pool sensors currently on the market are generally fairly unreliable and do not automatically correct for chemical imbalances in a pool. Our improvement over this is to develop a system that accurately measures chemicals in a pool. A consumer could then connect to the device through a bluetooth connection on their mobile device to view current chemical measurements. 
 
-		The device/system would also be connected to a system to automatically release and disperse chemicals into the pool when the chemicals in the pool are imbalanced. The consumer would also receive notifications (when within a specified range) if the level of chemicals in the dispersal system need to be replenished. A further improvement over traditional chemical sensors is the ability to measure close to twelve inches below the surface of the water. This allows for a much more accurate reading of the pool’s chemical balance. The pool sensor project was discarded as the main improvement could be simplified to simply more accurate measurements as well as the simplicity of chemical disbursement. 
+		The device/system would also be connected to a system to automatically release and disperse chemicals into the pool when the chemicals in the pool are imbalanced. The consumer would also receive notifications (when within a specified range) if the level of chemicals in the dispersal system need to be replenished. A further improvement over traditional chemical sensors is the ability to measure close to twelve inches below the surface of the water. This allows for a much more accurate reading of the pool’s chemical balance. The pool sensor project was discarded as the main improvement could be simplified to simply buying a more accurate sensor. 
 
 		The final potential idea we considered is a vacuum drone to clean dirt off of hard to access areas such as rafters and high window sills. Initial stages of the drone would be user-operated to test the flight time and to focus on a lightweight design. Afterwards, the drone would be made autonomous to automatically detect surfaces to vacuum off of the floor. Such devices would be extremely useful in large buildings where it is not feasible to move ladders around to reach high, flat surfaces to clean dust and trash off of. It would also be useful in homes with windows that are high off the ground and chandeliers. The main difficulty of this problem is that the building of the drone by itself would take the majority of the allotted time. Due to time constraints, few improvements could feasibly be implemented. 
 
@@ -106,21 +106,17 @@
 
 			After reviewing some of the patents for products that are currently being developed, we noticed that nearly all devices are embedded in the tire. This poses many issues, mainly that sensors would likely need to be replaced in the event of a blowout and that the prices for tires will increase as each tire comes with a new sensor. To improve upon this, our team decided ATIS should be mounted on the wheel well of the vehicle. This allows the device to be used with any tire and does not require replacement in the event of a tire blowout.
 
-			Originally, the sensor itself was designed as a camera which would use computer vision algorithms to identify the region of the grooves in the tread, using either a laser or a stereo camera to determine depth in the received image. This would allow for good accuracy in the depth measurement. However, we quickly identified issues with this design. Most importantly, the low-light conditions seen under wheel wells would make it extremely difficult for the camera to see the grooves in the tread. Dirt, mud, and water kicked up by the wheel would require the camera to be regularly cleaned by the driver. Frequent upkeep is generally not viewed positively by consumers. For these reasons, an optical camera based sensor was scrapped.
-
-			The current design of the sensor uses radar sensing techniques. With radar, dirt, mud, water, and low-light conditions do not affect the sensor's accuracy. The system can also measure much more accurately and consistently. However, this does come at an increased price over the optical sensors. 
-
 		\subsection{Requirements}
-			The tread sensor must be able to measure tire tread depth at a resolution of a minimum of 1/32''. The sensor must also be able to be attached to the inside of the wheel well. To ensure durability of the device, it must be able to withstand the general distress of normal highway and surface road driving. This requirement ensures that the device does not need to be frequently replaced and can remain in position for extended lengths of time without needing maintenance or cleaning. Additionally, the device must be extremely low-power to ensure that a battery does not need to be replaced or recharged frequently.
+			The tread sensor must be able to measure tire tread depth at a resolution of a minimum of 1/32''. The sensor must also be able to be attached to the inside of the wheel well. To ensure durability of the device, it must be able to withstand the general distress of normal highway and surface road driving. This requirement ensures that the device does not need to be frequently replaced and can remain in position for extended lengths of time without needing maintenance or cleaning. The device must also be safe to use in a vehicle. If the vehicle were to be involved in an accident, then the device must not become a unnecessarily dangerous to the operator or bystanders. Thus the device can not be large and bulky, must not be prone to explosions, and must have adequate quality control qualifications.
 
-			The sensor must be able to wirelessly connect to an in-vehicle notification system in order to alert the driver when the tread depth goes out of a specified range. This notification allows operators to know the tires need to be replaced soon. This early warning system can prevent the majority of tire-related accidents.
+			The sensor must be able to connect to an in-vehicle notification system in order to alert the driver when the tread depth goes out of a specified range. This notification allows operators to know the tires need to be replaced soon. This early warning system can prevent the majority of tire-related accidents.
  
 		\subsection{Specifications}
-			To meet the given requirements, the product must meet some minimum specifications. To ensure accurate tread wear readings, the sensor uses Frequency Modulated Continuous Wave (FMCW) radar technology. While the exact range has not yet been determined, it will likely be at or above 60 GHz (millimeter-wave range). The sensor is mounted at the apex of the inside of the wheel well so that it points directly down at the tire. 
+			To meet the given requirements, the product must meet some minimum specifications. To ensure accurate tread wear readings, the sensor uses Frequency Modulated Continuous Wave (FMCW) radar technology. The frequency band will be in the 76 to 81 GHz range as defined by updated FCC and ETSI guidelines regarding short range automotive radar. The sensor used will contain at least two transmitters and receivers so that an angle to the tire can be approximated. Multiple measurements will be taken across the tire to ensure that uneven tread is detected and accounted for. 
 
-			To meet the durability requirements, the sensor is securely mounted and is protected with a durable plastic casing ensuring that the sensor and communication technology within is well protected from shock impacts. The sensor may also be partially behind the surface of the wheel well to protect significant portions of it from flying debris while only the transmitter and receivers modules are open to the wheel.
+			The sensor is mounted at the apex of the inside of the wheel well so that it points directly down at the tire. To meet the durability requirements, the sensor is securely mounted and is protected with a durable plastic casing ensuring that the sensor and communication technology within is well protected from shock impacts. The sensor may also be partially behind the surface of the wheel well to protect significant portions of it from flying debris while only the transmitter and receivers modules are open to the wheel.
 
-			To ensure consistent results, ATIS only takes measurements when the vehicle has stopped. This allows for the device to spend more time taking measurements, ensuring greater accuracy. Since tire tread does not wear quickly, taking one measurement per trip is a sufficient early warning system to the driver. Taking measurements while the tire is rotating, especially at great speeds, leading to potentially inaccurate readings causing misinformation to be given to the driver.
+			To ensure consistent results, ATIS only takes measurements when the vehicle has stopped. This allows for the device to spend more time taking measurements, ensuring greater accuracy. Since tire tread does not wear quickly, taking one measurement per trip is a sufficient early warning system to the driver. Taking measurements while the tire is rotating, especially at great speeds, can lead to potentially inaccurate readings causing misinformation to be given to the driver.
 
 
 	\section{Constraints}
@@ -140,15 +136,22 @@
 
 
 	\section{Engineering Standards}
-		Since the product communicates wirelessly with a control module, it must comply with all applicable wireless communication standards. Potential standards for this communication include IEEE’s 802.15.4, 1451.5-2007, and 802.11 standards. IEEE 802.15.14 defines the operation of low-rate wireless sensors \cite{80215standard}. This standard limits sensors to a 10-meter communication range and a 250 Kbps transfer rate. IEEE 1451.5-2007 defines wireless communications protocols using the existing protocols ZigBee, 802.11, Bluetooth, and 6LoWPAN \cite{1451standard}.
+		ATIS will use FMCW high-frequency radar technology to calculate distance to points on the tread of a tire. Because of this, the laws and regulations regarding use of specific frequency bands must be adhered to. Current FMCW products focus on the state-of-the-art 77-GHz frequency band. The automotive short range radar (SRR) band spans the frequencies 77 GHz to 81 GHz. Until recently, the 24-GHz band (an ultra wide band spanning 21.65 GHz to 26.65 GHz) was the standard for automotive radar applications. However, recent regulation changes from the European Telecommunications Standards Institute (ETSI) and the Federal Communications  Commission (FCC) have adjusted the bandwidth of this range to only 200 MHz and have moved to phase out the 24-GHz UWB after January 1, 2022 \cite{etsi-reduced-24ghz}. After this date, vehicular long range radar (LRR) is required to be in the 76 GHz to 77 GHz range and vehicular SRR is required to be in the 77 GHz to 81 GHz range \cite{fcc-15-16,fcc-76-81,etsi-76-77,etsi-77-81}. This has pushed many companies, including Bosch, Toyota, and Texas Instruments \cite{ti-24-77} to adjust their product lines to no longer service the 24 GHz band.
+
+		When designing for automotive applications, safety is one of the largest concerns. ISO 26262 \cite{iso26262} sets out standards regarding the functional safety as part of the automotive product development phase. Part 9 of ISO 26262 is important for this project as it defines the Automotive Safety Integrity Level (ASIL) \cite{asil}. This is a risk classification system with five levels: QM, A, B, C, and D. On the low end, QM represents no potential safety hazard while ASIL D products represent a potentially fatal or severly life-threatening risk of injury in the event of a product malfunction. It is important that any product designed for automobile use has strong safety standards.
+
+		In addition to safety standards, it is important that our product has high quality control to reduce the risk of damage to the device, vehicle, or its occupants. The Automotive Electronics Council (AEC) has published standards regarding the quality control qualifications for integrated circuits in vehicles \cite{aecq100}. AEC-Q100 is an industry standard developed by major automotive manufacturers that outlines requirements and procedures for testing new and updated electronic devices. In order to ensure the safety of a vehicle's occupants, it is important that our final product adhere to similar standards. 
+
 
 	\section{Design}
 		\label{Design}
 		The design flow for the product includes a contactless sensor that measures tread depth of a tire. If the tread depth is outside of an acceptable range (generally less than 3/32'' on passenger vehicles), the driver is notified of the danger. This notification is inside the cabin of the vehicle so the driver is able to see the notification while driving and does not require manual checking of each tire individually. 
 
-		To measure the tread depth, a radar sensor is used. There are many different types of radar sensing that have different characteristics and different distance sensing methods. Pulsed Coherent Radar is a very simple type of radar sensing that sends out pulsed signals, meaning that the transmitter briefly emits a pulse and the receiver then listens to determine how long it takes for the pulse to respond. One of the most popular off-the-shelf parts utilizing this radar technology is the Acconeer A111 chip \cite{A111}.
+		Originally, the sensor itself was designed as a camera which would use computer vision algorithms to identify the region of the grooves in the tread, using either a laser or a stereo camera setup to determine depth in the received image. This would allow for good accuracy in the depth measurement. However, we quickly identified issues with this design. Most importantly, adverse environmental conditions seen under wheel wells would make it extremely difficult for the camera to see the grooves in the tread. Dirt, mud, and water kicked up by the wheel would require the camera to be regularly cleaned by the driver. Frequent upkeep is generally not viewed positively by consumers. For these reasons, an optical camera based sensor was scrapped.
 
-		Unfortunately, this chip contains only one receiver. This allows only for simple object detection (e.g., waving a hand or moving an object). For a radar system to properly map a surface, there must be multiple receivers on the device. Because of this, and our lack of equipment to fully design and create a millimeter-wave radar system, we must instead move to Frequency Modulated Continuous Wave radar.
+		The current design of the sensor uses radar sensing techniques. With radar, dirt, mud, water, and low-light conditions do not affect the sensor's accuracy. The system can also measure much more accurately and consistently. However, this does come at an increased price over the optical sensors. 
+
+		To measure the tread depth, a radar sensor is used. There are many different types of radar sensing that have different characteristics and different distance sensing methods. Pulsed Coherent Radar is a very simple type of radar sensing that sends out pulsed signals, meaning that the transmitter briefly emits a pulse and the receiver then listens to determine how long it takes for the pulse to respond. One of the most popular off-the-shelf parts utilizing this radar technology is the Acconeer A111 chip \cite{A111}. Unfortunately, this chip contains only one receiver. This allows only for simple object detection (e.g., waving a hand or moving an object). For a radar system to properly map a surface, there must be multiple receivers on the device. Because of this, and our lack of equipment to fully design and create a millimeter-wave radar system, we must instead move to Frequency Modulated Continuous Wave radar.
 
 		\begin{figure}[tbp]
 			\centering
@@ -187,21 +190,21 @@
 
 		Since the received chirp will bounce off both the surface of the tread and the grooves from different angles, the resulting received chirp will have multiple frequency components. Each of these components will correspond to different points on the tire. It is important to differentiate these points to form an accurate mapping of the surface of the tire. 
 
-			\begin{figure}[tbp]
-				\centering
-				\begin{subfigure}[b]{\linewidth}
-					\includegraphics[width=0.5\linewidth,keepaspectratio]{shortSine.png}
-					\caption{}
-					\label{fig:shortSine}
-				\end{subfigure} %
-				\begin{subfigure}[b]{\linewidth}
-					\includegraphics[width=\linewidth,keepaspectratio]{longSine.png}
-					\caption{}
-					\label{fig:longSine}
-				\end{subfigure} %
-				\caption{Observing a fewer number of cycles (a) versus observing more cycles (b) does not give enough resolution to determine the difference between two objects.}
-				\label{fig:LongvShortSine}
-			\end{figure}%
+		\begin{figure}[tbp]
+			\centering
+			\begin{subfigure}[b]{\linewidth}
+				\includegraphics[width=0.5\linewidth,keepaspectratio]{shortSine.png}
+				\caption{}
+				\label{fig:shortSine}
+			\end{subfigure} %
+			\begin{subfigure}[b]{\linewidth}
+				\includegraphics[width=\linewidth,keepaspectratio]{longSine.png}
+				\caption{}
+				\label{fig:longSine}
+			\end{subfigure} %
+			\caption{Observing a fewer number of cycles (a) versus observing more cycles (b) does not give enough resolution to determine the difference between two objects.}
+			\label{fig:LongvShortSine}
+		\end{figure}%
 
 		By performing a fourier transform of the chirp, the different frequency components will be determined. However, because of the very small difference in distance between the surface of the tread and the grooves, these frequencies will be very close together. To be able to differentiate between these frequencies, a long observation window is required. By increasing the observation window time, the range resolution increases. This can be seen by comparing the plots of two sine waves with similar, but different frequencies over a short period of time, \autoref{fig:shortSine}, and over a longer period of time, \autoref{fig:longSine}. From these figures, it is obvious that a longer observation window shows the sine waves are significantly different, implying multiple objects at different distances.
 
@@ -229,24 +232,92 @@
 
 
 	\section{Parts List}
-		Since the design has not yet been finalized, the parts list is not complete. \autoref{tab:parts} shows the current expected parts required for the FMCW radar-based design. An FMCW radar sensor is required to collect the sensing data. The two most promising options are the AWR1642 \cite{AWR1642} and IWR1642 \cite{IWR1642} booster packs available from Texas Instruments. When a final decision has been made on the exact sensor, the table will be updated with specific information.
+		Our design consists of two main parts: an FMCW radar sensor and a microcontroller for debugging and rapid prototyping. Additionally, for the prototype stage, we will use a simple LED output to display whether the tire tread depth is outside of a predetermined safe range. For the FMCW radar sensor, we have selected Texas Instruments' AWR1843BOOST FMCW radar sensor evaluation module. This module consists of the AWR1843 FMCW radar sensor processor with integrated ARM Cortex-R4F microcontroller, C674X DSP, 2 MB of on-chip memory, as well as multiple communication interfaces including SPI and CAN-FD to allow communication to microcontrollers and to a vehicle's central communication system.
 
-		A microcontroller is required to take the data from the FMCW sensor before performing calculations to determine distance measurements. These distance measurements are then plotted to determine the average tread depth of the tire. The microcontroller will then communicate with a simple LED to signal the driver that the tread depth is low (LED on) or that the tread depth is safe (LED off). For the Texas Instruments family of sensors, an MSP432 LaunchPad environment is able to communicate with the booster packs using Texas Instruments' mmWave software development kit.
+		For the microcontroller, we have selected an MSP432 LaunchPad. This is mainly due to the fact that the AWR1843BOOST is designed specifically to interface well with the LaunchPad ecosystem of microcontrollers for ease of use. Other microcontrollers, such as Raspberry Pis, are available to use. However, TI also provides a simple mmWave SDK as well as a customized development environment based off of the Eclipse IDE to facilitate the design process. 
+
+		\autoref{tab:parts} lists the parts choices we have made for this design including their price and quantity. The AWR1843BOOST package includes mounting brackets, rubber bump-ons for stabilization, and a USB cable to interface with the microcontroller or a computer. The team already has multiple MSP432s and so does not need to purchase additional items. However, the price is included in the table to accurately represent the full cost of the prototype system. The shipping price when ordering both the AWR1843BOOST and MSP432 directly from TI online is at minimum \$6.99. This brings the total cost of the product, pre-tax, to \$325.98. Following, we discuss the process of selecting the AWR1843 FMCW radar sensor. 
 
 		\begin{table}[t]
 			\begin{center}
 				\caption{Parts required for ATIS using a radar sensor.}
 				\label{tab:parts}
-				\begin{tabular}{l|l}
-					Part 			& Quantity  \\
+				\begin{tabular}{l|l|l}
+					Part/Expense		& Quantity 	& Cost  	\\
 					\hline
-					\vspace{-0.1in}		&	\\
-					FMCW Radar Sensor 	& 1 \\
-					Red LED 			& 1 \\
-					Microcontroller		& 1 
+					\vspace{-0.1in}		&			&			\\
+					AWR1843BOOST 		& 1 		& \$299.00	\\
+					MSP-EXP432P401R		& 1 		& \$19.99	\\
+					Red LED 			& 1 		& \$0.35	\\
+					Shipping 			& -			& \$6.99 	\\
+					\hline
+					\vspace{-0.1in}		&			&			\\
+					\textbf{Total} 		& 3			& \$325.98
 				\end{tabular}
 			\end{center}
 		\end{table}
+
+		\subsection{FMCW Radar Sensor}
+			\label{ssec:FMCW}
+			To determine which FMCW radar sensor would best suit the design, requirements, and specifications of ATIS, we first researched what companies offer FMCW radar solutions. There are many companies that offer FMCW products (e.g., \cite{fluidic,liteye,houston,analog,nxp}). However, most of these products are either too specific in purpose \cite{liteye}, not accurate enough \cite{houston}, in a lower frequency band than required \cite{analog}, or is not included in an evaluation board \cite{nxp}. 
+
+			\begin{table*}[t]
+				\begin{center}
+					\caption{Device comparison for AWR1xxx mmWave processors.}
+					\label{tab:processors}
+					\begin{tabular}{l|l|l|l|l|l}
+						Functionality 								& AWR1243 		& AWR1243P 		& AWR1443 		& AWR1642 		& AWR1843 	\\
+						\hline
+						\vspace{-0.1in}								&				&				&				&				&			\\
+						Number of Receivers 						& 4				& 4				& 4				& 4				& 4			\\
+						Number of Transmitters						& 3				& 3				& 3				& 2				& 3			\\
+						Simultaneous Transmitters					& 2				& 3				& 2				& 2				& 3			\\
+						On-Chip Memory 								& -				& -				& 576 KB 		& 1.5 MB 		& 2 MB 		\\
+						Max real sampling rate (Msps)				& 37.5 			& 37.5			& 12.5			& 12.5			& 25		\\
+						Max complex sampling rate (Msps)			& 18.75			& 18.75			& 6.25			& 6.25			& 12.25		\\
+						Micro Controller Unit (R4F)					& -				& -				& Yes 			& Yes 			& Yes 		\\
+						Digital Signal Processor (C674X)			& -				& -				& - 			& Yes 			& Yes 		\\
+						Serial Peripheral Interface (SPI) Ports 	& 1				& 1				& 1				& 2				& 2			\\
+						Quad Serial Peripheral Interface (QSPI) 	& -				& -				& Yes 			& Yes 			& Yes 		\\
+						Inter-Integrated Circuit (I$^\text{2}$C) 	& -				& -				& Yes 			& Yes 			& Yes 		\\
+						Controller Area Network (DCAN) interface 	& -				& -				& Yes 			& Yes 			& Yes 		\\
+						CAN FD 										& - 			& -				& - 			& Yes 			& Yes 		\\
+						JTAG 										& - 			& - 			& Yes 			& Yes 			& Yes 		\\
+					\end{tabular}
+				\end{center}
+			\end{table*}
+
+			For automotive applications in the 77GHz band, Texas Instruments (TI) and NXP are the leaders in FMCW radar chips. NXP produces one FMCW chip \cite{nxp}, however it is only sold as a BGA chip which is outside of our skill set to use. This led us to choose TI as our product source. TI produces a large product line of FMCW chips which are also made available in evaluation modules, also called booster packs. 
+
+			These modules are developed specifically to integrate with the TI LaunchPad ecosystem. These evaluation boards have SPI, I2C, and UART capabilities, enabling communication with other microcontrollers such as a Raspberry Pi. TI also supplies a mmWave SDK \cite{sdk} that integrates with their development environment Code Composer Studio, a custom version of the Eclipse IDE. This allows developers to rapidly prototype system programs for their mmWave devices.
+
+			TI offers a large selection of evaluation modules (EVM) for their FMCW device families. These EVMs are designed with direct connectivity to TI's MCU LaunchPad ecosystem for simple, rapid prototyping. The EVM boards include onboard emulation for programming and debugging, onboard buttons, and LEDs for quick integration of a simple user interface.
+
+			The TI booster packs are broken into two device families. The AWR family covers automotive applications \cite{awr} while the IWR family covers industrial applications. Based on their functionality, the two families are the same. Although most of the AWR applications can be performed on the IWR booster packs, the AWR booster packs are more qualified for automotive applications as they are AEC-Q100-qualified and nealy all are Automotive Safety Integrity Level B-type (ASIL-B) targeted. This is not the case for the IWR devices as these qualifications are not required for industrial applications. AEC-Q100 is a failure mechanism-based stress test qualification for integrated circuits used in automotive applications and guarantees a certain level of quality and reliability \cite{aecq100}. ASIL is a risk classification system defined by the ISO 26262 standard \cite{iso26262} for the safety of vehicles and ranges from ASIL-A to ASIL-D. Products with ASIL-A classification pose the least amount of risk while ASIL-D classified products pose the highest potential for life-threatening or fatal injury in the event of a malfunction in the device \cite{asil}. 
+
+			Both device families have a lower bound operating temperature of \ang{-40}C. The AWR family has a higher upper bound of +\ang{125}C to prevent damage while exposed to the environment with little to no protection compared to the IWR family's +\ang{105}C upper limit. 
+
+			Given these key differences between the AWR and IWR device families, we have chosen the AWR family for our application. This is mainly due to the higher safet and quality standards, as the two families do not differ in other functional aspects. The AWR device family consists of the AWR1243, AWR1243P, AWR1443, AWR1642, and AWR1843. Each of these processors contain mmWave radar sensors that function in the 76 to 81 GHz band with a 4 GHz available bandwidth. They are each also sold in EVMs to allow for easier prototyping. Since each of the EVM packages add the same functionality, we only considered differences in the processors themselves to make a final decision. \autoref{tab:processors} summarizes the key specifications of each of the processors and detailed breakdowns of each processor follow.
+
+			\subsubsection{AWR1243/AWR1243P}
+				The only difference between the AWR1243 and AWR1243P devices \cite{awr1243,awr1243boost} is that the AWR1243P supports a three TX simultaneous operation while the AWR1243 only supports a two TX simulatenous operation. Based ont he specifications and requirements, the three TX simultaneous operation is not necessary as we will only need to transmit two signals at a given time. The advantage of these two processors is that both have a maximum real sampling rate of 37.5 Msps and a maximum complex sampling rate of 18.75 Msps. This measurement is the number of samples taken per second and is important for recording an accurate waveform of the received signal.
+
+				The first major disadvantage is that both processors do not have an internal processor-based MCU nor a digital signal processor (DSP). A basic MCU incorporates teh CPU, memory, and peripheral functions while a DSP is used to measure, filter, or compress continuous analog signals. The second major disadvantage is that neither have on-chip memory which is crucial in decreasing latency for critical and frequently used data. With this in mind, on-chip memory can oftsen save development time and cost \cite{memory}.
+
+				The third major disadvantage is that although both booster packs have a serial peripheral interface (SPI) port, neither supports the Joint Test Action Group (JTAG) protocol. The JTAG protocol primarily functions by enabling communication with an MCU during product development, emulation, and application debugging \cite{jtag}.
+
+				The fourth major disadvantage is that both processors do not have a quad serial peripheral interface (QSPI). This would provide the necessary support for communicating with an external flash memory device using SPI, which would greatly assist in retaining data for comparison to ensure that readings are accurate. The last major disadvantage is that neither supports the controller area network (CAN) protocol nor the controller area network with flexible data rate (CAN-FD) protocol. The CAN protocol provides an inexpensive and durable network to allow multiple CAN devices to communicate with one another \cite{iso11898}. CAN-FD improves on the standard CAN protocol by allowing up to 64-bytes in a single message, greatly improving the data throughput. 
+
+				The AWR1243 and AWR1243P have the best in class sampling rates. However, they are missing multiple crucial communication protocols QSPI, I$^\text{2}$C, CAN, and CAN-FD which prevents the device from effectively communicating with a vehicle. Additionally, these devices do not have an on-board MCU or DSP, making prototyping more difficult as they can not be directly programmed.
+
+			\subsubsection{AWR1443}
+				Similar to the AWR1243 and AWR1243P, the AWR1443 \cite{awr1443,awr1443boost} has four RX channels and three TX channels. However, it only supports operation of two simultaneous TX channels. A major disadavantage for this processor is that there is not an on-board DSP.  However, it does have an ARM Cortex-R4F MCU. This processor has a lower real and complex sampling rate than the AWR1243, potentially leading to less accurate results. The main advantages of the AWR1443 is 576 KB of on-chip memory and support of the JTAG, DCAN, I$^\text{2}$C, SPI, and QSPI communication protocols. Because of the additional communication capabilities of this processor as well as the on-board MCU, it is considered over the AWR1243 and AWR1243P for this design.
+
+			\subsubsection{AWR1642}
+				The AWR1642 \cite{awr1642,awr1642boost} has four RX channels, similar to the previously considered processors. However, the AWR1642 only has two TX channels. Compared to the AWR1443, this processor has the same maximum real and complex processing rates of 12.5 and 6.25 Msps, respectively. The major advantages the AWR1642 has over the AWR1443 is that it has a larger on-chip memory of 1.5 MB and supposerts the higher throughput CAN-FD protocol. Because of these small advantages, we can rule out the AWR1443 and instead consider the AWR1642 for our design.
+
+			\subsubsection{AWR1843}
+				The AWR1843 \cite{awr1843,awr1843boost} is one of TIs most recent mmWave developments, having been released in Fall of 2019. This processor has four RX and three TX channels and also supports all three TX channels in simultaneous operation. The AWR1843 contains an integrated ARM Cortex-R4F MCU and C674X DSP unit. Similar to the AWR1642, this processor supports JTAG, SPI, QSPI, DCAN, and CAN-FD protocol interfaces. It's main advantage over the AWR1642 is that its max real and complex sampling rates are doubled at 25 and 12.25 Msps, respectively. Additionally, it has a larger on-board chip memory of 2 MB compared to the AWR1642s 1.5 MB. Based on these findings, we can select the AWR1843 as the processor to use for our FMCW radar design as it best suits the design, requirements, and specifications of ATIS. 
 
 
 	\section{Prototype and System Integration}
@@ -256,6 +327,8 @@
 
 
 	\section{Deliverables}
+		By the end of the project timeline, the final product will be able to accurately detect tread depth on a passenger vehicle tire to an accuracy less than or equal to 2/32''. The device will be mountable on a vehicle's wheel well. A potential implementation would be to integrate the device with a vehicle's CAN communication system to allow the device to communicate with the vehicle to send upadtes to the operator.
+
 		Once the product itself is complete, we will compose a final report discussing our findings, results, and conclusions. This report will discuss the specifics of the final product, the difficulties in completing it, and the specific details of how it functions. A poster and presentation will also be prepared to give a high-level understanding of the product and how it functions to business leaders, professors, and peers.
 
 
@@ -296,13 +369,11 @@
 				\gantttitle{4}{1} \\
 
 				% Tasks
-				\ganttbar{Project Proposal}{1}{14} \\
-				\ganttbar{Sensor Design}{2}{12} \\
-				\ganttbar{Housing Design}{4}{7} \\
-				\ganttbar{Alert System Design}{8}{12} \\
-				\ganttbar{Order Parts}{13}{17} \\
-				\ganttbar{Initial Construction}{14}{16} \\
-				\ganttbar{Redesign}{15}{17}
+				% To set color use [bar/.append style = { fill = $(COLOR) } ]
+				\ganttbar{Project Proposal}{1}{16} 		\\ % January 13 - April 27
+				\ganttbar{Sensor Design}{4}{17} 		\\ % February 3 - May 4
+				\ganttbar{Order Parts}{15}{17} 			\\ % April 20 - May 4
+				\ganttbar{Initial Construction}{16}{17}    % April 27 - May 4
 
 				% Relations 
 				% \ganttlink{elem1}{elem4}
@@ -343,8 +414,12 @@
 				\gantttitle{17}{1} \\
 
 				% Tasks
-				\ganttbar{Redesign}{1}{3} \\
-				\ganttbar{Testing}{3}{8} \\
+				\ganttbar{Initial Construction}{1}{3} \\ % 
+				\ganttbar{Housing Design}{7}{10} 		\\ % 
+				\ganttbar{Alert System Design}{8}{12} 	\\ % 
+				\ganttbar{Redesign}{4}{8} \\
+				\ganttbar{Initial Testing}{2}{4} \\
+				\ganttbar{Redesign Testing}{7}{9} \\
 				\ganttbar{\quad\quad\enspace Final Redesign}{8}{15}
 
 				% Relations 
@@ -405,6 +480,8 @@
 
 			\begin{table}[tb]
 				\centering
+				\caption{Leaders for each key project phase.}
+				\label{tab:phaseLeaders}
 				\begin{tabularx}{\linewidth}{l|l}
 					Project Phase 						& Leader \\
 					\hline
@@ -416,58 +493,112 @@
 					Testing and Optimization 			& Brandon Jones \\
 					Prototype Implementation 			& Samuel Simmons
 				\end{tabularx}
-				\caption{Leaders for each key project phase.}
-				\label{tab:phaseLeaders}
 			\end{table}
 
 
 	\begin{thebibliography}{00}
-		% Statistics on car crashes
-		\bibitem{cdcKeyStats} Center for Disease Control and Prevention, ``Key Data and Statistics,'' 2015. [Online]. Available: \url{https://www.cdc.gov/injury/wisqars/overview/key_data.html}
+		% Introduction
+			\bibitem{cdcKeyStats} Center for Disease Control and Prevention, ``Key Data and Statistics,'' 2015. [Online]. Available: \url{https://www.cdc.gov/injury/wisqars/overview/key_data.html}
 
-		\bibitem{nhtsaCrashStats} National Highway Traffic Safety Administration, ``Tire-Related Factors in the Pre-Crash Phase,'' 2012. [Online]. Available: \url{https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/811617}
+			\bibitem{nhtsaCrashStats} National Highway Traffic Safety Administration, ``Tire-Related Factors in the Pre-Crash Phase,'' 2012. [Online]. Available: \url{https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/811617}
 
 
-		% Patents for tread sensing
-		% \bibitem{justwheelsPatent} T. Scheckter, ``Radar tread sensing for wheel well,'' U.S. Patent 20200031173A1, Jul., 19, 2019. 
+		% Current Products
+			% \bibitem{justwheelsPatent} T. Scheckter, ``Radar tread sensing for wheel well,'' U.S. Patent 20200031173A1, Jul., 19, 2019. 
 		
-		\bibitem{continentalPatent} T. A. Brey, ``Tire tread wear sensor system,'' U.S. Patent 7180409B2, Feb., 20, 2007.
-		
-		\bibitem{intellitread} ``Tire Tread Wear Sensors - Tyrata.'' Accessed on: Feb. 11, 2020. [Online]. Available: \url{https://tyrata.com/}
-		
-		\bibitem{goodyearPatent1} C. T. R. Pulford, C. H. Lin, ``Sensor system for monitoring tire wear,'' U.S. Patent 20190184763A1, Dec., 19, 2018.
-		
-		\bibitem{nxpbvPatent} R. L. Robinson, ``System and method for determining tread wear of a tire,'' U.S. Patent 9831922B1, Nov., 28, 2017.
-		
-		\bibitem{goodyearPatent2} M. Engel, B. W. Kimble, and D. Lednik, ``Tire tread wear sensor system,'' U.S. Patent 20160075189A1, Mar., 17, 2014.
-		
-		\bibitem{patent4} R, Achterholt, ``Method and device for detecting the wear on at least one tire of a vehicle,'' U.S Patent 20190344625A1, Nov., 14, 2019.
+			\bibitem{continentalPatent} T. A. Brey, ``Tire tread wear sensor system,'' U.S. Patent 7180409B2, Feb., 20, 2007.
+			
+			\bibitem{intellitread} ``Tire Tread Wear Sensors - Tyrata.'' Accessed on: Feb. 11, 2020. [Online]. Available: \url{https://tyrata.com/}
+			
+			\bibitem{goodyearPatent1} C. T. R. Pulford, C. H. Lin, ``Sensor system for monitoring tire wear,'' U.S. Patent 20190184763A1, Dec., 19, 2018.
+			
+			\bibitem{nxpbvPatent} R. L. Robinson, ``System and method for determining tread wear of a tire,'' U.S. Patent 9831922B1, Nov., 28, 2017.
+			
+			\bibitem{goodyearPatent2} M. Engel, B. W. Kimble, and D. Lednik, ``Tire tread wear sensor system,'' U.S. Patent 20160075189A1, Mar., 17, 2014.
+			
+			\bibitem{patent4} R, Achterholt, ``Method and device for detecting the wear on at least one tire of a vehicle,'' U.S Patent 20190344625A1, Nov., 14, 2019.
 
-		% SiGe papers
-		\bibitem{122ghz} S. Scherr, \textit{et al.}, ``Miniaturized 122 ghz ism band fmcw radar with micrometer accuracy,'' In \textit{2015 European Radar Conference (EuRAD)}, Paris, 2015, pp. 277-280.
 
-		\bibitem{240ghz} T. Jaeschke, C. Bredendiek, N. Pohl. ``A 240 ghz ultra-wideband fmcw radar system with on-chip antennas for high resolution radar imaging,'' In \textit{2013 IEEE MTT-S International Microwave Symposium Digest (MTT)}, Seattle, WA, 2013, pp. 1-4.
+		% Constraints
+			% SiGe papers
+				\bibitem{122ghz} S. Scherr, \textit{et al.}, ``Miniaturized 122 ghz ism band fmcw radar with micrometer accuracy,'' In \textit{2015 European Radar Conference (EuRAD)}, Paris, 2015, pp. 277-280.
+
+				\bibitem{240ghz} T. Jaeschke, C. Bredendiek, N. Pohl. ``A 240 ghz ultra-wideband fmcw radar system with on-chip antennas for high resolution radar imaging,'' In \textit{2013 IEEE MTT-S International Microwave Symposium Digest (MTT)}, Seattle, WA, 2013, pp. 1-4.
     	
 
 		% Standards
-    	\bibitem{80215standard} \textit{Standard for Low-Rate Wireless Networks - Amendment 5: Enabling/Updating the Use of Regional Sub-GHz Bands}, IEEE Standard 802.15.14v-2017, IEEE Computer Society, New York, 2017.
+			\bibitem{etsi-reduced-24ghz} ``ETSI EN 302 288 - ultra-wideband radar equipment operating in the 24,25 GHz to 26,65 GHz range,'' European Telecommunications Standards Institute, May 2015. [Online].Available: \url{https://www.etsi.org/deliver/etsi_en/302200_302299/302288/02.01.01_60/en_302288v020101p.pdf} (accessed Apr. 22, 2020).
+
+			\bibitem{fcc-15-16} ``FCC 15-16,'' Federal Communications Commission FCC 15-16, Feb. 2015. [Online].Available: \url{https://apps.fcc.gov/edocs_public/attachmatch/FCC-15-16A1_Rcd.pdf} (accessed Apr. 22, 2020).
+
+			\bibitem{fcc-76-81} ``Radar services in the 76-81 ghz band,'' Federal Communications Commission, Jun. 2017. [Online].Available: \url{https://www.fcc.gov/document/radar-services-76-81-ghz-band} (accessed Apr. 22, 2020).
+
+			\bibitem{etsi-76-77} ``ETSI EN 301 091-2 - Radar equipment operating in the 76 ghz to 77 ghz range,'' European Telecommunications Standards Institute, Jan. 2017. [Online].Available: \url{https://www.etsi.org/deliver/etsi_en/301000_301099/30109102/02.01.01_60/en_30109102v020101p.pdf} (accessed Apr. 22, 2020).
+
+			\bibitem{etsi-77-81} ``ETSI EN 302 264-1 - Short range radar equipment operating in the 77 ghz to 81 ghz band,'' European Telecommunications Standards Institute, Jun. 2009. [Online].Available: \url{https://www.etsi.org/deliver/etsi_en/302200_302299/30226401/01.01.01_60/en_30226401v010101p.pdf} (accessed Apr. 22, 2020).
+
+			\bibitem{ti-24-77} ``Moving from legacy 24 ghz to state-of-the-art 77 ghz radar,'' Texas Instruments, Oct. 2017. [Online].Available: \url{https://www.ti.com/lit/wp/spry312/spry312.pdf} (accessed Apr. 22, 2020).
+
+			\bibitem{iso26262} \textit{Road Vehicles - Functional Safety}, ISO 26262-1:2018, International Organization for Standardization, Dec. 2018.
+
+			\bibitem{asil} ``What is the ISO26262 functional safety standard?,'' ni.com. [Online].Available: \url{https://www.ni.com/en-us/innovations/white-papers/11/what-is-the-iso-26262-functional-safety-standard-.html#toc2} (accessed Apr. 22, 2020).
+
+	    	\bibitem{aecq100} \textit{Failure Mechanism Based Stress Test Qualification for Integrated Circuits}, AECQ100, Automotive Electronics Council, Sept. 2014. [Online].Available: \url{http://aecouncil.com/Documents/AEC_Q100_Rev_H_Base_Document.pdf}.
+
+
+		% Design
+			% Products
+				\bibitem{A111} ``SparkFun Pulsed Radar Breakout - A111.'' SparkFun. \url{https://www.sparkfun.com/products/15577} (accessed Mar. 9, 2020).
+
+			
+			% TI presentation on FMCW 
+				\bibitem{tiPresentation} S. Rao. Introduction to mmwaveSensing: FMCW Radars [PDF]. Available: \url{https://training.ti.com/sites/default/files/docs/mmwaveSensing-FMCW-offlineviewing_2.pdf}.
+
+
+		% Parts List
+			% Selected Parts
+				\bibitem{awr1843boost} AWR1843 single-chip 76-GHz to 81-GHz automotive radar sensor evaluation module. Texas Instruments. \url{https://www.ti.com/tool/AWR1843BOOST}
+
+			% FMCW Companies
+				\bibitem{fluidic} ``Honetwell RM60 FMCW Radar Level Transmitter.'' fluidic-ltd.co.uk. \url{https://fluidic-ltd.co.uk/product/honeywell-rm60/} (accessed Apr. 20, 2020).
+
+				\bibitem{liteye} ``Surveillance Radar - Liteye Systems, Inc.`` liteye.com. \url{https://liteye.com/products/surveillance-radar/} (accessed Apr. 20, 2020).
+
+				\bibitem{houston} ``PD300/PD310.'' houston-radar.com. \url{https://houston-radar.com/products/radar-data-collectors/pd300-pd310-oem-fmcw-presence-detector-radar/} (accessed Apr. 20 2020).
+
+				\bibitem{analog} ``ADF5901.'' analog.com. \url{https://www.analog.com/en/products/ADF5901.html#product-overview} (accessed Apr. 20 2020).
+				
+				\bibitem{nxp} ``TEF810X Fully-Integrated 77 GHz Radar Transceiver.'' nxp.com. \url{https://www.nxp.com/products/rf/radar-transceivers/tef810x-fully-integrated-77-ghz-radar-transceiver:TEF810X} (accessed Apr. 20 2020).
+
+			% Texas Instruments Parts Discussion
+				\bibitem{sdk} mmWave software development kit (SDK). Texas Instruments. [Online].Available: \url{https://www.ti.com/tool/MMWAVE-SDK} (accessed Apr. 22, 2020)
+
+				\bibitem{awr} Automotive mmWave Sensors. Texas Instruments. \url{https://www.ti.com/sensors/mmwave/awr/overview.html} (accessed Apr. 22, 2020).
+
+				\bibitem{iwr} Industrial mmWave Sensors. Texas Instruments. \url{https://www.ti.com/sensors/mmwave/iwr/overview.html} (accessed Apr. 22, 2020).
+
+				\bibitem{awr1243} AWR1243. Texas Instruments. \url{https://www.ti.com/product/AWR1243f} accessed (Apr. 22, 2020).
+
+				\bibitem{awr1243boost} AWR1243 Single-Chip 77- and 79-GHz FMCW Transceiver. Texas Instruments. \url{https://www.ti.com/tool/AWR1243BOOST}
+
+				\bibitem{memory} Memory System Design. Intel. \url{https://www.intel.com/content/dam/www/programmable/us/en/pdfs/literature/hb/nios2/edh_ed51008.pdf} (accessed Apr. 22, 2020).
+
+				\bibitem{jtag} C2000 MCU JTAG Connectivity Debug. Texas Instruments. \url{https://www.ti.com/lit/spracf0}.
+
+				\bibitem{iso11898} \textit{Road vehicles - Controller area network (CAN)}, ISO 11898-1:2015, International Organization for Standardization, Dec. 2015.
+
+				\bibitem{awr1443} AWR1443. Texas Instruments. \url{https://www.ti.com/product/AWR1443} (accessed Apr. 22, 2020).
+
+				\bibitem{awr1443boost} AWR1443 single-chip 76-GHz to 81-GHz automotive radar sensor evaluation module. Texas Instruments. \url{https://www.ti.com/tool/AWR1443BOOST} (accessed Apr. 22, 2020).
+
+				\bibitem{awr1642} AWR1642. Texas Instruments. \url{https://www.ti.com/product/AWR1642} (accessed Apr. 22, 2020).
+
+				\bibitem{awr1642boost} AWR1642 single-chip 76-GHz to 81-GHz automotive radar sensor evaluation module. Texas Instruments. \url{https://www.ti.com/tool/AWR1642BOOST} (accessed Apr. 22, 2020).
+
+				\bibitem{awr1843} AWR1843. Texas Instruments. \url{https://www.ti.com/product/AWR1843} (accessed Apr. 22, 2020).
+
+				\bibitem{awr1843boost} AWR1843 single-chip 76-GHz to 81-GHz automotive radar sensor evaluation module. Texas Instruments. \url{https://www.ti.com/tool/AWR1843BOOST} (accessed Apr. 22, 2020).
 		
-		\bibitem{1451standard} \textit{Standard for a Smart Transducer Interface for Sensors and Actuators - Wireless Communication and Transducer Electronic Data Sheet (TEDS) Formats}, IEEE Standard 1451.5-2007, IEEE Instrumentation and Measurement Society, New York, 2007. 
-
-
-		% Products
-		\bibitem{A111} ``SparkFun Pulsed Radar Breakout - A111.'' SparkFun. \url{https://www.sparkfun.com/products/15577} (accessed Mar. 9, 2020).
-
-		
-		% TI presentation on FMCW 
-		\bibitem{tiPresentation} S. Rao. Introduction to mmwaveSensing: FMCW Radars [PDF]. Available: \url{https://training.ti.com/sites/default/files/docs/mmwaveSensing-FMCW-offlineviewing_2.pdf}.
-
-
-		% Potential FMCW sensor boards
-		\bibitem{AWR1642} AWR1642BOOST mmWave Sensor. Texas Instruments. \url{https://www.ti.com/tool/AWR1642BOOST} (accessed Mar. 9, 2020).
-
-		\bibitem{IWR1642} IWR1642BOOST mmWave Sensor. Texas Instruments. \url{https://www.ti.com/tool/IWR1642BOOST} (accessed Mar. 9, 2020).
-		
-		\bibitem{roleOfmmWave} A. Bhutani, S. Marahrens, M. Gehringer, B. G{\"o}ttel, M. Pauli, T. Zwick, ``The role of millimeter-waves in the distance measurement accuracy of an fmcw radar sensor,'' \textit{Sensors 2019}, vol. 19, no. 18, Sept., 2019, doi: 10.3390/s19183938.
+		% \bibitem{roleOfmmWave} A. Bhutani, S. Marahrens, M. Gehringer, B. G{\"o}ttel, M. Pauli, T. Zwick, ``The role of millimeter-waves in the distance measurement accuracy of an fmcw radar sensor,'' \textit{Sensors 2019}, vol. 19, no. 18, Sept., 2019, doi: 10.3390/s19183938.
 	\end{thebibliography}
 \end{document}
