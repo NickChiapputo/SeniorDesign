@@ -147,36 +147,36 @@
 		\label{Design}
 		The design flow for the product includes a contactless sensor that measures tread depth of a tire. If the tread depth is outside of an acceptable range (generally less than 3/32'' on passenger vehicles), the driver is notified of the danger. This notification is inside the cabin of the vehicle so the driver is able to see the notification while driving and does not require manual checking of each tire individually. 
 
-		Originally, the sensor itself was designed as a camera which would use computer vision algorithms to identify the region of the grooves in the tread, using either a laser or a stereo camera setup to determine depth in the received image. This would allow for good accuracy in the depth measurement. However, we quickly identified issues with this design. Most importantly, adverse environmental conditions seen under wheel wells would make it extremely difficult for the camera to see the grooves in the tread. Dirt, mud, and water kicked up by the wheel would require the camera to be regularly cleaned by the driver. Frequent upkeep is generally not viewed positively by consumers. For these reasons, an optical camera based sensor was scrapped.
-
-		The current design of the sensor uses radar sensing techniques. With radar, dirt, mud, water, and low-light conditions do not affect the sensor's accuracy. The system can also measure much more accurately and consistently. However, this does come at an increased price over the optical sensors. 
-
-		To measure the tread depth, a radar sensor is used. There are many different types of radar sensing that have different characteristics and different distance sensing methods. Pulsed Coherent Radar is a very simple type of radar sensing that sends out pulsed signals, meaning that the transmitter briefly emits a pulse and the receiver then listens to determine how long it takes for the pulse to respond. One of the most popular off-the-shelf parts utilizing this radar technology is the Acconeer A111 chip \cite{A111}. Unfortunately, this chip contains only one receiver. This allows only for simple object detection (e.g., waving a hand or moving an object). For a radar system to properly map a surface, there must be multiple receivers on the device. Because of this, and our lack of equipment to fully design and create a millimeter-wave radar system, we must instead move to Frequency Modulated Continuous Wave radar.
-
-		\begin{figure}[tbp]
+		\begin{figure}[t]
 			\centering
 			\includegraphics[ width=0.7\linewidth, keepaspectratio]{chirp_a_vs_t.png}
 			\caption{Linearly modulated sinusoidal signal known as a chirp. Modulates from frequency $f_c$ to $f_c + B$ \cite{tiPresentation}.}
 			\label{fig:chirp_a_vs_t}
 		\end{figure} %
 
-		\begin{figure}[tbp]
+		Originally, the sensor itself was designed as a camera which would use computer vision algorithms to identify the region of the grooves in the tread, using either a laser or a stereo camera setup to determine depth in the received image. This would allow for good accuracy in the depth measurement. However, we quickly identified issues with this design. Most importantly, adverse environmental conditions seen under wheel wells would make it extremely difficult for the camera to see the grooves in the tread. Dirt, mud, and water kicked up by the wheel would require the camera to be regularly cleaned by the driver. Frequent upkeep is generally not viewed positively by consumers. For these reasons, an optical camera based sensor was scrapped.
+
+		The current design of the sensor uses radar sensing techniques. With radar, dirt, mud, water, and low-light conditions do not affect the sensor's accuracy. The system can also measure much more accurately and consistently. However, this does come at an increased price over the optical sensors. 
+
+		To measure the tread depth, a radar sensor is used. There are many different types of radar sensing that have different characteristics and different distance sensing methods. Pulsed Coherent Radar is a very simple type of radar sensing that sends out pulsed signals, meaning that the transmitter briefly emits a pulse and the receiver then listens to determine how long it takes for the pulse to respond. One of the most popular off-the-shelf parts utilizing this radar technology is the Acconeer A111 chip \cite{A111}. Unfortunately, this chip contains only one receiver. This allows only for simple object detection (e.g., waving a hand or moving an object). For a radar system to properly map a surface, there must be multiple receivers on the device. Because of this, and our lack of equipment to fully design and create a millimeter-wave radar system, we must instead move to Frequency Modulated Continuous Wave (FMCW) radar \cite{roleOfmmWave,high-accuracy,understanding,thesis,experiment}.
+
+		\begin{figure}[t]
 			\centering
 			\includegraphics[ width=0.7\linewidth, keepaspectratio]{chirp_f_vs_t.png}
 			\caption{Chirp in a frequency vs time plot showing the linear modulation with slope $S$ \cite{tiPresentation}.}
 			\label{fig:chirp_f_vs_t}
 		\end{figure} %
 
-		FMCW radars generate a sinusoidal signal whose frequency is linearly modulated over bandwidth $B$ from the center frequency $f_c$ to $f_c + B$ as shown in \autoref{fig:chirp_a_vs_t}. This signal is known as a chirp. The rate of increase $S$ in the frequency, also known as sweep rate, is given in MHz/s. The time span over which the signal is modulated is given by $T_c$ in seconds. \autoref{fig:chirp_f_vs_t} shows the frequency of the chirp over time.
-
-		\begin{figure}[tbp]
+		\begin{figure}[t]
 			\centering
 			\includegraphics[ width=0.7\linewidth, keepaspectratio]{tx_rx_chirp.png}
 			\caption{Showcasing time difference $\tau$ between transmitted and received chirp \cite{tiPresentation}.}
 			\label{fig:tx_rx_chirp}
 		\end{figure} %
 
-		The receiver modules then receive the chirp after it has traveled to an object and bounced back. The time difference between when the chirp is first transmitted and when it is first received is given by $\tau$. The signal being transmitted at time $t$ has the frequency $\omega_1$ while the signal being received at the same time has frequency $\omega_2$. By sending the currently transmitted and received chirps through a mixer, an Intermediate Frequency (IF) signal is produced. The instantaneous frequency of the IF signal is the difference of the instantaneous frequencies of the two chirps. The frequency of the IF signal $S_{\tau}$ is then $\frac{S2d}{c}$. This value is a constant as the difference between the transmitted and received chirps will always be the same. The IF signal can be determined using the transmit chirp $x_{TX}$ and the receive chirp $x_{RX}$ to create $x_{IF}$ as follows:
+		FMCW radars generate a sinusoidal signal whose frequency is linearly modulated over bandwidth $B$ from the center frequency $f_c$ to $f_c + B$ as shown in \autoref{fig:chirp_a_vs_t}. This signal is known as a chirp. The rate of increase $S$ in the frequency, also known as sweep rate, is given in MHz/s. The time span over which the signal is modulated is given by $T_c$ in seconds. \autoref{fig:chirp_f_vs_t} shows the frequency of the chirp over time.
+
+		The receiver modules then receive the chirp after it has traveled to an object and bounced back. The time difference between when the chirp is first transmitted and when it is first received is given by $\tau$ as shown in \autoref{fig:tx_rx_chirp}. The signal being transmitted at time $t$ has the frequency $\omega_1$ while the signal being received at the same time has frequency $\omega_2$. By sending the currently transmitted and received chirps through a mixer, an Intermediate Frequency (IF) signal is produced. The instantaneous frequency of the IF signal is the difference of the instantaneous frequencies of the two chirps. The frequency of the IF signal $S_{\tau}$ is then $\frac{S2d}{c}$. This value is a constant as the difference between the transmitted and received chirps will always be the same. The IF signal can be determined using the transmit chirp $x_{TX}$ and the receive chirp $x_{RX}$ to create $x_{IF}$ as follows:
 		\begin{align}
 			x_1 	&= \text{sin}[\omega_1t + \phi_1] \label{eq:x1} \\
 			x_2 	&= \text{sin}[\omega_2t + \phi_2] \label{eq:x2} \\
@@ -550,15 +550,22 @@
 			% Products
 				\bibitem{A111} ``SparkFun Pulsed Radar Breakout - A111.'' SparkFun. \url{https://www.sparkfun.com/products/15577} (accessed Mar. 9, 2020).
 
+			% Academic/Scholarly Papers
+				\bibitem{roleOfmmWave} A. Bhutani, S. Marahrens, M. Gehringer, B. G{\"o}ttel, M. Pauli, and T. Zwick, ``The role of millimeter-waves in the distance measurement accuracy of an fmcw radar sensor,'' \textit{Sensors 2019}, vol. 19, no. 18, Sept., 2019, doi: 10.3390/s19183938.
+
+				\bibitem{high-accuracy} P. Pahl, T. Kayser, M. Pauli, and T. Zwick, ``Evaluation of a high accuracy range detection algorithm for FMCW/phase radar systems,'' In \textit{The 7th European Radar Conference}, Paris, 2010, pp. 160-163.
+
+				\bibitem{understanding} G. M. Brooker, ``Understanding millimetre wave FMCW radars,'' In \textit{1st International Conference on Sensing Technology}, Palmerston North, New Zealand, 2005, pp. 152-157.
+
+				\bibitem{thesis} J. L. Uphoff, ``Introduction to automotive FMCW radar technologies,'' M.S. thesis. Dept. of Appl. Signal Process., Blekinge Inst. of Technol., Karlskrona, Sweden, 2018.
+
+				\bibitem{experiment} X. Gao, G. Xing, S. Roy, and H. Liu, ``Experiments with mmWave automotive radar test-bed,'' arXiv: 1912.12566 [eess.SP], Dec. 2019.
 			
 			% TI presentation on FMCW 
 				\bibitem{tiPresentation} S. Rao. Introduction to mmwaveSensing: FMCW Radars [PDF]. Available: \url{https://training.ti.com/sites/default/files/docs/mmwaveSensing-FMCW-offlineviewing_2.pdf}.
 
 
 		% Parts List
-			% Selected Parts
-				\bibitem{awr1843boost} AWR1843 single-chip 76-GHz to 81-GHz automotive radar sensor evaluation module. Texas Instruments. \url{https://www.ti.com/tool/AWR1843BOOST}
-
 			% FMCW Companies
 				\bibitem{fluidic} ``Honetwell RM60 FMCW Radar Level Transmitter.'' fluidic-ltd.co.uk. \url{https://fluidic-ltd.co.uk/product/honeywell-rm60/} (accessed Apr. 20, 2020).
 
@@ -598,7 +605,5 @@
 				\bibitem{awr1843} AWR1843. Texas Instruments. \url{https://www.ti.com/product/AWR1843} (accessed Apr. 22, 2020).
 
 				\bibitem{awr1843boost} AWR1843 single-chip 76-GHz to 81-GHz automotive radar sensor evaluation module. Texas Instruments. \url{https://www.ti.com/tool/AWR1843BOOST} (accessed Apr. 22, 2020).
-		
-		% \bibitem{roleOfmmWave} A. Bhutani, S. Marahrens, M. Gehringer, B. G{\"o}ttel, M. Pauli, T. Zwick, ``The role of millimeter-waves in the distance measurement accuracy of an fmcw radar sensor,'' \textit{Sensors 2019}, vol. 19, no. 18, Sept., 2019, doi: 10.3390/s19183938.
 	\end{thebibliography}
 \end{document}
