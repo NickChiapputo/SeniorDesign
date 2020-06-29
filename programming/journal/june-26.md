@@ -4,7 +4,11 @@
 	* [mmWave Sensor FAQ.](https://e2e.ti.com/support/sensors/f/1023/t/595725)
 	* [Software Related FAQ for mmWave SDK.](https://e2e.ti.com/support/sensors/f/1023/t/856028)
 		* This is just a link found from the mmWave Sensor FAQ.
-	* 
+* Was able to generate an empty project for the AWR1843 MSS.
+* Ran the Medium Range Radar lab from the Automotive Toolbox
+	* Not the greatest results, but I did learn a little about the program flow.
+	* Contained source material that I can study in the future to learn how to write a mmWave Radar program.
+	* The Developer's Guide and the source files are a good stepping point to learn more in the next step.
 
 ## Problems Encountered
 * CCS says I don't have SYS/BIOS installed when I certainly do have it installed. Unsure of how to point CCS to the installation directory.
