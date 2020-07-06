@@ -17,6 +17,7 @@
 	1. Explored the file 'mss_main.c'
 		<details>
 			<summary>Explored the main method.</summary>
+			
 			* Learned about the following functions by exploring the MMWAVESDK documentation (installed locally with the SDK):
 				* **`ESM_init`**
 					* Used to initialize the ESM driver.
