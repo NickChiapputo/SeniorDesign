@@ -1,4 +1,11 @@
 # July 6
+## Index
+1. [Summary](#summary)
+1. [Problems Encountered](#summary)
+1. [Things Learned](#summary)
+	1. [Definitions](#summary)
+1. [Steps Taken](#summary)
+
 ## Summary
 * Explored the main method of the lab00007 - Medium Range Radar project from the Automotive Toolbox
 	* Found API documentation for the methods in the main method and explained the parameters and what the functions do.
