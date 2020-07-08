@@ -1,0 +1,53 @@
+# July 8
+## Index
+1. [Summary](#summary)
+1. [Problems Encountered](#problems-encountered)
+1. [Things Learned](#things-learned)
+	1. [Definitions](#definitions)
+1. [Steps Taken](#steps-taken)
+
+---
+
+## Summary
+I explored CCS and found that the correct target/platform options for creating a new project are `ti.targets.arm.elf.R4F` and `ti.platforms.cortexR:AWR16XX:false:200`, respectively. I also found that we need to select the `Browse...` button when adding the command linker file to correctly add it (after doing so, it will show the full path to the .cmd file). 
+
+For the binary files, I found that there is a specific image for CCS debugging located in the local MMWAVESDK install at `mmwave_sdk_<ver>/packages/ti/utils/ccsdebug/<platform>_ccsdebug.bin`. This file needs to be flashed to the device before using CCS to program the device. Additionally, there is source code for the basic demo located in `C:/ti/mmwave_sdk_<ver>/packages/ti/demo/awr18xx/`. This directory contains sub-directories with both MSS and DSS source files. They are shorter than the lab 00007 source files, so they should be easier to go through. We can also directly add them to CCS and modify them to test out functionalities.
+
+---
+
+## Problems Encountered
+1. Building the barebones example from 06-26 results in an error message: `DEFAULT memory range overlaps existing memory range RAM`.
+	* Fixed by correctly including the `xwr1843_r4f.cmd` linker command file by using the `Browse...` button instead of simply typing in the filename when creating a new project. Also works by copy+pasting the file into the project directory.
+1. Was unsure of whether the correct target/platform was being selected when creating a new project.
+	* I believe it is correct because there are no files for 18XX and the FAQ steps use 16XX. 
+1. Tried to understand exactly what the .bin (binary) files are and what they do. 
+	* Could not find any description in the MMWAVESDK documents. The only thing I could find is where prebuilt binaries are located. This solves the problem of how to debug in CCS (there is a prebuilt binary for CCS debugging), but does not solve the problem of what we need to do regarding the binary files when we produce a final product. This can be solved at a later time or asked on the sensors forums.
+---
+
+## Things Learned
+1. There is a binary file for CCS debugging located locally in the MMWAVESDK installation at `mmwave_sdk_<ver>/packages/ti/utils/ccsdebug/<platform>_ccsdebug.bin`
+1. The target/platform options to select during project creation are `ti.targets.arm.elf.R4F` and `ti.platforms.cortexR:AWR16XX:false:200`, respectively. The command linker file requires you to directly select the file, not just type in the name of the file.
+	* Note that there will be nothing in the platform drop-down box because we selected the AWR1843 device in the first step.
+	* These target-device-platform values are defined in the SYS/BIOS install director in the JSON file `C:/ti/bios_6_73_01_01/etc/platforms.json`. In the most current version (6.82.01.19), there is still no 18XX references, so we will continue to use version 6.73.1.01 because that is what the labs use and I know no reason to upgrade.
+1. The demo source files are located in `C:/ti/mmwave_sdk_<ver>/packages/ti/demo/awr18xx/`.
+---
+
+## Steps Taken
+1. Explored CCS to see if it generates the .bin files.
+	1. Opened the project created on 06-26
+	1. Clicked 'Build'
+		* Received error stating 'DEFAULT memory range overlaps existing memory range RAM'.
+		* Found E2E post [here](https://e2e.ti.com/support/microcontrollers/other/f/908/t/393965?DEFAULT-memory-range-overlaps-existing-memory-range) outlining the fix.
+			* It says to navigat the "XCDTools" menu; however, I do not have that menu option (likely because the thread is from 2015 and they are using an older CCS version).
+		* FIX: Downloaded the provided example project from the [FAQ thread entry](https://e2e.ti.com/support/tools/ccs/f/81/t/836333). This zip archive had a file named `xwr1843_r4f.cmd` that I did not have in my project. Copy+pasted it into my project and the build now successfully completes.
+			* PREVENTION: When creating the project, select "Browse" on the "Linker command file" option and then select the file `xwr1843_r4f.cmd` instead of just typing it in (as I did). The FAQ example did not explain that very well.
+	1. Looked through the target and platform options on the second page of creating a new project to ensure the correct options were being selected. In the FAQ steps, it says to use the target `ti.targets.arm.elf.R4F` and platform `ti.platforms.cortexR:AWR16XX:false:200`. This second one says 16XX, so I wanted to check that it was correct.
+		* Viewing the SYS/BIOS platform options in the file `C:/ti/bios_6_73_01_01/etc/platforms.json` shows that there is no 18XX platform. 
+		* Installed SYS/BIOS version 6.82.01.19 to check if there was an 18XX platform in it since the 1843 is relatively new and this is the most current version of SYS/BIOS
+		* It did not include anything with AWR18XX in it, so I assume choosing the 16XX option is correct. My only confusion is that the drop-down platforms box does not show any options to select from, so I am unsure if typing it in is the correct action. My assumption is that it is because, in the JSON file, the "device" attribute has the regex `^AWR16.*`, so it will not show up as I selected the AWR1843 for my device.
+1. Explored MMWAVESDK User Guide (download from [this page](https://software-dl.ti.com/ra-processors/esd/MMWAVE-SDK/latest/index_FDS.html)) to look for an explanation of .bin files.
+	1. Section 3.2.2 (page 9) explains that CCS development mode uses a prebuilt binary file located locally at `mmwave_sdk_<ver>/packages/ti/utils/ccsdebug/<platform>_ccsdebug.bin`.
+		* This section also references the Demos section 5.4.1 which gives the local address of the demo directory (which includes the image I flashed to run the demo through the browser). It is interesting to note that there is actually source code here that runs the demo. This is probably good to go through as it will be a fairly basic application. It does require you to download and install MMWAVESDK, however.
+	1. Section 5.4.17 (pp. 67-68) describes the required startup behavior (i.e., calling the initialization functions).
+		* These actions are required for any program to run.
+	1. 
