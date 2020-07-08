@@ -1,10 +1,10 @@
 # July 6
 ## Index
 1. [Summary](#summary)
-1. [Problems Encountered](#problems encountered)
-1. [Things Learned](#things learned)
+1. [Problems Encountered](#problems-encountered)
+1. [Things Learned](#things-learned)
 	1. [Definitions](#definitions)
-1. [Steps Taken](#steps taken)
+1. [Steps Taken](#steps-taken)
 
 ## Summary
 * Explored the main method of the lab00007 - Medium Range Radar project from the Automotive Toolbox
