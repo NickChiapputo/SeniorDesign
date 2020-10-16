@@ -1,0 +1,39 @@
+\documentclass[11pt]{article}
+
+\usepackage{titling}			% Used to move title up when not in IEEEtran
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+
+
+% Change section autoref label from 'section' (default) to 'Section'
+\renewcommand*{\thesection}{\Roman{section}}
+
+
+\hypersetup{
+	colorlinks = true,
+	linkcolor = blue,
+	filecolor = magenta,
+	urlcolor = black,
+	citecolor = blue,
+	pdftitle = {Autonomous Tread Identification System},
+	pdfpagemode = UseOutlines,
+}
+
+\begin{document}
+
+	\title{ \vspace{-0.0575in} Autonomous Tread Identification System }
+
+	\author{ Nicholas Chiapputo, Brandon Jones, Tim McCoig, Samuel Simmons }
+
+	\maketitle
+
+	Tire-related issues, including blowouts, tread separation and worn tread, are some of the most common causes of vehicle accidents. In 2015, more than 35,000 people were killed in motor vehicle accidents in the United States alone. The NHTSA has reported that on tire-related crash vehicles, 26.2\% of tires had a tread-depth of the legal minimum of 2/32'' of tread or less. 
+
+	Current tread wear sensors are designed to be embedded inside of the tire. However, these embedded sensors would need to be replaced in the event of a blown or damaged tire, increasing the cost of the tires. While an RFID-based solution was patented in 2007 and other companies have put millions in funding towards research and development of tread wear sensors, no company has yet to release a product to the market. To reduce the risk of tire-related accidents of road vehicles, we propose an inexpensive tire tread system utilizing FMCW radar technology. Our solution, mounted outside of the tire, reduces the long-term cost of tire maintenance by keeping tire costs the same. Additionally, this sensor can be integrated with monitoring technology to provide fleet vehicles with an efficient and remote monitoring system.
+
+	To measure the tire’s tread depth, the system uses an FMCW radar sensor. The radar contains multiple transmitters and receivers in order to allow for depth perception. The tread depth is measured by transmitting a linearly frequency modulated signal and comparing it with the received signal to capture the frequency difference. The resulting data is processed on the sensor to produce a map of the surface of the tread on the tire. An average tread depth reading is then calculated by taking the difference of the high and low points. 
+
+	To provide optimal protection and results, the radar sensor is to be mounted to a vehicle structure element embedded within the wheel well and perpendicular to the tire. The sensor is connected to the vehicle through the CAN bus, allowing communication between the sensor and the vehicle. This information can be passed to the driver either through a dashboard indicator or the vehicle’s infotainment system. 
+
+	While tire pressure monitoring systems are already a standard in all modern-day vehicles, tire tread is generally not checked unless a vehicle is taken in for routine maintenance, which leads to infrequent monitoring of the tread depth. Because of this, an efficient, comparably inexpensive and reliable tire tread monitoring system is essential to continuously ensure the safe operation of a vehicle. Utilizing FMCW radar technology provides a quintessential solution for detecting tread depth as high resolution measurements are required. Compared to other current tread wear detection patents, embedding the radar sensor within the wheel well of the vehicle reduces the cost of tire-related maintenance and provides easy access in the case of product maintenance, ultimately reducing the long-term cost of any required tire-related maintenance.
+\end{document}
